@@ -11,6 +11,12 @@ func New() *gin.Engine {
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
 
+	// 托管前端静态文件
+	r.Static("/portal", "./stitch_virtual_card_wholesale_portal")
+	r.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusMovedPermanently, "/portal/_1/code.html")
+	})
+
 	// CORS 中间件（内联实现，无需额外依赖）
 	r.Use(func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Origin", "*")
