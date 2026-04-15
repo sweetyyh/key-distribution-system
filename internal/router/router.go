@@ -1,6 +1,8 @@
 package router
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"key-distribution-system/internal/handler"
 )
@@ -9,8 +11,25 @@ func New() *gin.Engine {
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
 
+	// CORS 中间件（内联实现，无需额外依赖）
+	r.Use(func(c *gin.Context) {
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
+		c.Header("Access-Control-Max-Age", "86400")
+		if c.Request.Method == http.MethodOptions {
+			c.AbortWithStatus(http.StatusNoContent)
+			return
+		}
+		c.Next()
+	})
+
 	health := handler.NewHealthHandler()
 	r.GET("/ping", health.Ping)
+
+	productH := handler.NewProductHandler()
+	orderH := handler.NewOrderHandler()
+	payH := handler.NewPayHandler()
 
 	apiV1 := r.Group("/api/v1")
 	{
@@ -20,16 +39,16 @@ func New() *gin.Engine {
 			auth.POST("/login", handler.NotImplemented)
 		}
 
-		apiV1.GET("/products", handler.NotImplemented)
-		apiV1.GET("/products/:id", handler.NotImplemented)
-		apiV1.POST("/orders", handler.NotImplemented)
+		apiV1.GET("/products", productH.List)
+		apiV1.GET("/products/:id", productH.Get)
+		apiV1.POST("/orders", orderH.CreateOrder)
 		apiV1.GET("/orders", handler.NotImplemented)
 		apiV1.GET("/orders/:order_no", handler.NotImplemented)
-		apiV1.GET("/orders/:order_no/cards", handler.NotImplemented)
+		apiV1.GET("/orders/:order_no/cards", orderH.GetOrderCards)
 
 		pay := apiV1.Group("/pay")
 		{
-			pay.POST("/callback/:channel", handler.NotImplemented)
+			pay.POST("/callback/:channel", payH.MockCallback)
 			pay.GET("/return/:channel", handler.NotImplemented)
 		}
 	}

@@ -7,6 +7,7 @@ import (
 
 	"key-distribution-system/internal/config"
 	"key-distribution-system/internal/router"
+	"key-distribution-system/internal/store"
 )
 
 func main() {
@@ -19,6 +20,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("load config failed: %v", err)
 	}
+
+	store.Init()
 
 	r := router.New()
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Host, cfg.Server.Port)
