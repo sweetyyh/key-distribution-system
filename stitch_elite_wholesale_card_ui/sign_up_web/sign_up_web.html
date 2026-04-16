@@ -1,193 +1,223 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Register | Glacier Wholesale</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Register | Glacier Card</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="../shared/portal.js"></script>
+    <script>
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
-            "colors": {
-                    "secondary-fixed-dim": "#88b4cc",
-                    "outline": "#4a6070",
-                    "on-error-container": "#ffb3b3",
-                    "surface-container-low": "#111828",
-                    "on-tertiary-fixed": "#1a002e",
-                    "surface-container-highest": "#202c42",
-                    "on-primary-fixed-variant": "#004d73",
-                    "error": "#ff6b6b",
-                    "on-primary-fixed": "#001f2e",
-                    "on-primary": "#001f2e",
-                    "on-background": "#e0e8f0",
-                    "tertiary-fixed-dim": "#c8a0f0",
-                    "surface-dim": "#0f1524",
-                    "on-tertiary-container": "#e8d0ff",
-                    "on-secondary": "#001f2e",
-                    "surface": "#0f1524",
-                    "on-tertiary": "#1a002e",
-                    "inverse-primary": "#0a4c6e",
-                    "background": "#0a0e1a",
-                    "on-tertiary-fixed-variant": "#4d2a73",
-                    "on-surface": "#e0e8f0",
-                    "on-secondary-fixed-variant": "#2a4a5e",
-                    "on-primary-container": "#c8eaff",
-                    "surface-bright": "#1a2438",
-                    "tertiary-fixed": "#e8d0ff",
-                    "primary": "#7dd3fc",
-                    "on-error": "#1a0000",
-                    "surface-container-high": "#1a2438",
-                    "primary-fixed": "#c8eaff",
-                    "tertiary-container": "#3d2060",
-                    "surface-tint": "#7dd3fc",
-                    "primary-fixed-dim": "#7dd3fc",
-                    "surface-container": "#141c2e",
-                    "secondary": "#88b4cc",
-                    "on-secondary-container": "#c0d8e8",
-                    "surface-variant": "#1a2438",
-                    "secondary-container": "#1a3a4e",
-                    "inverse-on-surface": "#0a0e1a",
-                    "error-container": "#3d1414",
-                    "tertiary": "#c8a0f0",
-                    "on-surface-variant": "#a0b4c4",
-                    "on-secondary-fixed": "#0d1f2b",
-                    "surface-container-lowest": "#0a0e1a",
-                    "inverse-surface": "#e0e8f0",
-                    "outline-variant": "#2a3a48",
-                    "primary-container": "#0e4d6e",
-                    "secondary-fixed": "#c0d8e8"
+            colors: {
+              primary: "#7dd3fc",
+              background: "#0a0e1a",
             },
-            "borderRadius": {
-                    "DEFAULT": "0.5rem",
-                    "lg": "1rem",
-                    "xl": "1.5rem",
-                    "full": "9999px"
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
             },
-            "fontFamily": {
-                    "headline": ["Inter"],
-                    "body": ["Inter"],
-                    "label": ["Inter"]
-            }
-          }
-        }
-      }
+          },
+        },
+      };
     </script>
-<style>
-        body { font-family: 'Inter', sans-serif; }
-        .glass-panel {
-            background: rgba(15, 21, 36, 0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(125, 211, 252, 0.1);
-        }
-        .glass-input {
-            background: rgba(10, 14, 26, 0.4);
-            border: 1px solid rgba(125, 211, 252, 0.15);
-        }
-        .glass-input:focus {
-            outline: none;
-            border-color: rgba(125, 211, 252, 0.4);
-            box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
-        }
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(125, 211, 252, 0.18), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(200, 160, 240, 0.14), transparent 30%),
+          #0a0e1a;
+      }
+      .glass-panel {
+        background: rgba(15, 21, 36, 0.72);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(125, 211, 252, 0.12);
+      }
     </style>
-</head>
-<body class="bg-background text-on-background min-h-screen flex flex-col relative overflow-hidden">
-<!-- Background Decor -->
-<div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]"></div>
-<div class="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] bg-tertiary/5 rounded-full blur-[120px]"></div>
-</div>
-<!-- TopNavBar (Shared Component) -->
-<nav class="fixed top-0 z-50 flex justify-between items-center px-6 py-4 w-full bg-[#0a0e1a]/60 backdrop-blur-lg border-b border-sky-400/10 shadow-[0_0_30px_rgba(125,211,252,0.05)] font-inter tracking-tight">
-<div class="text-2xl font-semibold text-sky-300 tracking-wider">Glacier Wholesale</div>
-<div class="flex items-center gap-6">
-<a class="text-slate-400 hover:bg-sky-400/10 transition-colors px-3 py-1.5 rounded-md active:scale-95 duration-200" href="#">Catalog</a>
-<a class="text-slate-400 hover:bg-sky-400/10 transition-colors px-3 py-1.5 rounded-md active:scale-95 duration-200" href="#">Solutions</a>
-<a class="text-sky-300 font-medium px-4 py-2 border border-sky-400/20 rounded-lg hover:bg-sky-400/10 transition-all" href="#">Support</a>
-</div>
-</nav>
-<!-- Main Content -->
-<main class="flex-grow flex items-center justify-center px-4 py-24 relative">
-<!-- Decoration Image -->
-<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-20 pointer-events-none">
-<img class="w-full h-full object-contain filter blur-2xl" data-alt="abstract flowing glass waves with icy blue and purple refraction highlights against a dark cinematic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVYoZf7oGz92C7H97b-Do4SCd9XNOzVBrS53haQ9QdS826XgLCsfvDDsXHoq1BDLRba9ssgn1XnZEXz6HMMh1k4Y4YFoy1S8AT8IOmOjFYCuvZciwOFJB28-_7_QBausqLy_zSHVT9NebrwyBDD37gD3Twx3m-jbHdL5Y8UNi_4D2OFsCTBTzyOEgDiGLrqE24hssW7eCWhch_57A-gTpdzIYAlCGF2SXTKPZiFX5ZyB5SoaTBwrzugZbmPbQ0ilbVkc0VyEwGDjU"/>
-</div>
-<!-- Registration Card -->
-<div class="glass-panel w-full max-w-[480px] rounded-xl p-8 md:p-10 z-10 shadow-2xl">
-<div class="text-center mb-10">
-<h1 class="text-3xl font-semibold text-on-surface tracking-tight mb-2">Create Account</h1>
-<p class="text-on-surface-variant">Join the Glacier Wholesale platform today.</p>
-</div>
-<form class="space-y-6">
-<!-- Username -->
-<div class="space-y-2">
-<label class="block text-sm font-medium text-on-surface-variant px-1" for="username">Username</label>
-<div class="relative group">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors text-[20px]">person</span>
-<input class="glass-input w-full pl-10 pr-4 py-3 rounded-lg text-on-surface placeholder:text-outline transition-all" id="username" placeholder="glacier_admin" type="text"/>
-</div>
-</div>
-<!-- Email -->
-<div class="space-y-2">
-<label class="block text-sm font-medium text-on-surface-variant px-1" for="email">Email Address</label>
-<div class="relative group">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors text-[20px]">mail</span>
-<input class="glass-input w-full pl-10 pr-4 py-3 rounded-lg text-on-surface placeholder:text-outline transition-all" id="email" placeholder="name@company.com" type="email"/>
-</div>
-</div>
-<!-- Password Row -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="space-y-2">
-<label class="block text-sm font-medium text-on-surface-variant px-1" for="password">Password</label>
-<div class="relative group">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors text-[20px]">lock</span>
-<input class="glass-input w-full pl-10 pr-4 py-3 rounded-lg text-on-surface placeholder:text-outline transition-all" id="password" placeholder="••••••••" type="password"/>
-</div>
-</div>
-<div class="space-y-2">
-<label class="block text-sm font-medium text-on-surface-variant px-1" for="confirm-password">Confirm</label>
-<div class="relative group">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors text-[20px]">lock_reset</span>
-<input class="glass-input w-full pl-10 pr-4 py-3 rounded-lg text-on-surface placeholder:text-outline transition-all" id="confirm-password" placeholder="••••••••" type="password"/>
-</div>
-</div>
-</div>
-<!-- Terms & Conditions -->
-<div class="flex items-center gap-3 py-2">
-<div class="relative flex items-center">
-<input class="w-5 h-5 rounded border-sky-400/20 bg-background/50 text-primary focus:ring-primary focus:ring-offset-0 transition-all cursor-pointer" id="terms" type="checkbox"/>
-</div>
-<label class="text-sm text-on-surface-variant leading-tight cursor-pointer" for="terms">
-                        I agree to the <a class="text-primary hover:underline transition-all" href="#">Terms &amp; Conditions</a> and <a class="text-primary hover:underline transition-all" href="#">Privacy Policy</a>.
-                    </label>
-</div>
-<!-- Action Button -->
-<button class="w-full py-4 bg-primary/10 border border-primary/30 text-primary font-semibold rounded-lg hover:bg-primary/20 transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(125,211,252,0.1)]" type="submit">
-                    Create Account
-                </button>
-</form>
-<div class="mt-8 pt-6 border-t border-sky-400/10 text-center">
-<p class="text-on-surface-variant text-sm">
-                    Already have an account? 
-                    <a class="text-primary font-medium hover:text-sky-200 transition-colors ml-1" href="#">Log in here</a>
-</p>
-</div>
-</div>
-</main>
-<!-- Footer (Shared Component) -->
-<footer class="w-full py-8 border-t border-sky-400/10 bg-[#0a0e1a] font-inter text-sm mt-auto">
-<div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-4">
-<div class="text-sky-300 font-bold">Glacier Wholesale</div>
-<div class="flex gap-8">
-<a class="text-slate-500 hover:text-sky-200 transition-colors" href="#">Terms of Service</a>
-<a class="text-slate-500 hover:text-sky-200 transition-colors" href="#">Privacy Policy</a>
-<a class="text-slate-500 hover:text-sky-200 transition-colors" href="#">Wholesale FAQ</a>
-</div>
-<div class="text-slate-500">© 2024 Glacier Card Platform. All rights reserved.</div>
-</div>
-</footer>
-</body></html>
+  </head>
+  <body class="min-h-screen bg-background text-white">
+    <main class="mx-auto flex min-h-screen max-w-6xl items-center px-4 py-12 sm:px-6">
+      <div class="grid w-full gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <section class="glass-panel rounded-[2rem] p-8 sm:p-10">
+          <div class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+            New Buyer
+          </div>
+          <h1 class="mt-6 text-4xl font-semibold leading-tight">
+            Create a buyer account that matches the backend register contract.
+          </h1>
+          <p class="mt-4 text-sm leading-7 text-slate-300">
+            This page submits <code>username</code>, <code>email</code>, and <code>password</code> to <code>/api/v1/auth/register</code>, then saves the returned token and redirects into the portal.
+          </p>
+          <div class="mt-8 space-y-3 text-sm text-slate-300">
+            <div class="rounded-2xl border border-white/5 bg-white/5 px-4 py-3">Username: 3-64 characters</div>
+            <div class="rounded-2xl border border-white/5 bg-white/5 px-4 py-3">Email: valid address required for checkout</div>
+            <div class="rounded-2xl border border-white/5 bg-white/5 px-4 py-3">Password: minimum 6 characters</div>
+          </div>
+        </section>
+
+        <section class="glass-panel rounded-[2rem] p-8 sm:p-10">
+          <div class="flex items-center justify-between">
+            <a class="text-xl font-semibold text-primary" href="/portal/index_web/index_web.html">Glacier Card</a>
+            <a class="text-sm text-slate-300 transition hover:text-white" id="login-link" href="/portal/log_in_web/log_in_web.html">Log in</a>
+          </div>
+
+          <form class="mt-10 space-y-5" id="register-form">
+            <div>
+              <label class="mb-2 block text-sm text-slate-300" for="username">Username</label>
+              <input
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-0"
+                id="username"
+                name="username"
+                placeholder="buyer_account"
+                required
+                type="text"
+              />
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm text-slate-300" for="email">Email</label>
+              <input
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-0"
+                id="email"
+                name="email"
+                placeholder="buyer@example.com"
+                required
+                type="email"
+              />
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label class="mb-2 block text-sm text-slate-300" for="password">Password</label>
+                <input
+                  class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-0"
+                  id="password"
+                  name="password"
+                  placeholder="At least 6 characters"
+                  required
+                  type="password"
+                />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm text-slate-300" for="confirm-password">Confirm Password</label>
+                <input
+                  class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-0"
+                  id="confirm-password"
+                  name="confirm-password"
+                  placeholder="Repeat the password"
+                  required
+                  type="password"
+                />
+              </div>
+            </div>
+
+            <label class="flex items-start gap-3 rounded-2xl border border-white/5 bg-white/5 px-4 py-3 text-sm text-slate-300">
+              <input class="mt-1 rounded border-white/10 bg-white/5 text-primary focus:ring-primary" id="terms" required type="checkbox" />
+              <span>I confirm that this account is for purchasing through the buyer portal.</span>
+            </label>
+
+            <div class="hidden rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200" id="error-box"></div>
+            <div class="hidden rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200" id="success-box"></div>
+
+            <button
+              class="w-full rounded-2xl bg-primary px-4 py-3 font-semibold text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+              id="submit-button"
+              type="submit"
+            >
+              Create Account
+            </button>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      (function () {
+        var app = window.PortalApp;
+        var form = document.getElementById("register-form");
+        var errorBox = document.getElementById("error-box");
+        var successBox = document.getElementById("success-box");
+        var submitButton = document.getElementById("submit-button");
+        var loginLink = document.getElementById("login-link");
+        var nextPath = app.getNextPath(app.INDEX_PAGE);
+
+        loginLink.href = "/portal/log_in_web/log_in_web.html?next=" + encodeURIComponent(nextPath);
+
+        function setMessage(box, message) {
+          box.textContent = message;
+          box.classList.remove("hidden");
+        }
+
+        function clearMessages() {
+          errorBox.classList.add("hidden");
+          successBox.classList.add("hidden");
+          errorBox.textContent = "";
+          successBox.textContent = "";
+        }
+
+        form.addEventListener("submit", async function (event) {
+          event.preventDefault();
+          clearMessages();
+
+          var formData = new FormData(form);
+          var username = String(formData.get("username") || "").trim();
+          var email = String(formData.get("email") || "").trim();
+          var password = String(formData.get("password") || "");
+          var confirmPassword = String(formData.get("confirm-password") || "");
+
+          if (username.length < 3) {
+            setMessage(errorBox, "Username must be at least 3 characters.");
+            return;
+          }
+          if (password.length < 6) {
+            setMessage(errorBox, "Password must be at least 6 characters.");
+            return;
+          }
+          if (password !== confirmPassword) {
+            setMessage(errorBox, "Passwords do not match.");
+            return;
+          }
+
+          submitButton.disabled = true;
+          submitButton.textContent = "Creating Account...";
+
+          try {
+            var data = await app.api("/api/v1/auth/register", {
+              method: "POST",
+              body: {
+                username: username,
+                email: email,
+                password: password,
+              },
+            });
+
+            app.saveSession(data);
+            app.saveCheckoutDraft({
+              email: email,
+              name: username,
+            });
+            setMessage(successBox, "Registration successful. Redirecting...");
+            window.setTimeout(function () {
+              window.location.href = nextPath;
+            }, 500);
+          } catch (error) {
+            setMessage(errorBox, error.message);
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Create Account";
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

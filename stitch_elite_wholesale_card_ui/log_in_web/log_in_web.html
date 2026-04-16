@@ -1,198 +1,195 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Login | Glacier Wholesale</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0e1a;
-        }
-        .glass-card {
-            background: rgba(15, 21, 36, 0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(125, 211, 252, 0.1);
-        }
-        .glass-input {
-            background: rgba(10, 14, 26, 0.4);
-            border: 1px solid rgba(125, 211, 252, 0.1);
-            transition: all 0.3s ease;
-        }
-        .glass-input:focus {
-            border-color: rgba(125, 211, 252, 0.5);
-            box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
-            outline: none;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-    </style>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "secondary-fixed-dim": "#88b4cc",
-                        "outline": "#4a6070",
-                        "on-error-container": "#ffb3b3",
-                        "surface-container-low": "#111828",
-                        "on-tertiary-fixed": "#1a002e",
-                        "surface-container-highest": "#202c42",
-                        "on-primary-fixed-variant": "#004d73",
-                        "error": "#ff6b6b",
-                        "on-primary-fixed": "#001f2e",
-                        "on-primary": "#001f2e",
-                        "on-background": "#e0e8f0",
-                        "tertiary-fixed-dim": "#c8a0f0",
-                        "surface-dim": "#0f1524",
-                        "on-tertiary-container": "#e8d0ff",
-                        "on-secondary": "#001f2e",
-                        "surface": "#0f1524",
-                        "on-tertiary": "#1a002e",
-                        "inverse-primary": "#0a4c6e",
-                        "background": "#0a0e1a",
-                        "on-tertiary-fixed-variant": "#4d2a73",
-                        "on-surface": "#e0e8f0",
-                        "on-secondary-fixed-variant": "#2a4a5e",
-                        "on-primary-container": "#c8eaff",
-                        "surface-bright": "#1a2438",
-                        "tertiary-fixed": "#e8d0ff",
-                        "primary": "#7dd3fc",
-                        "on-error": "#1a0000",
-                        "surface-container-high": "#1a2438",
-                        "primary-fixed": "#c8eaff",
-                        "tertiary-container": "#3d2060",
-                        "surface-tint": "#7dd3fc",
-                        "primary-fixed-dim": "#7dd3fc",
-                        "surface-container": "#141c2e",
-                        "secondary": "#88b4cc",
-                        "on-secondary-container": "#c0d8e8",
-                        "surface-variant": "#1a2438",
-                        "secondary-container": "#1a3a4e",
-                        "inverse-on-surface": "#0a0e1a",
-                        "error-container": "#3d1414",
-                        "tertiary": "#c8a0f0",
-                        "on-surface-variant": "#a0b4c4",
-                        "on-secondary-fixed": "#0d1f2b",
-                        "surface-container-lowest": "#0a0e1a",
-                        "inverse-surface": "#e0e8f0",
-                        "outline-variant": "#2a3a48",
-                        "primary-container": "#0e4d6e",
-                        "secondary-fixed": "#c0d8e8"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.5rem",
-                        "lg": "1rem",
-                        "xl": "1.5rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Inter"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
-                    }
-                },
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login | Glacier Card</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="../shared/portal.js"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#7dd3fc",
+              background: "#0a0e1a",
+              panel: "#141c2e",
             },
-        }
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
     </script>
-</head>
-<body class="bg-background min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
-<!-- Background Elements -->
-<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full"></div>
-<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-tertiary/5 blur-[100px] rounded-full"></div>
-<div class="absolute inset-0 z-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, rgba(125, 211, 252, 0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
-<!-- Main Container -->
-<main class="relative z-10 w-full max-w-md px-6 py-12">
-<!-- Branding Anchor -->
-<div class="text-center mb-10">
-<h1 class="text-3xl font-semibold text-primary tracking-wider font-headline mb-2">Glacier Wholesale</h1>
-<p class="text-on-surface-variant text-sm font-body">Premium Inventory Access</p>
-</div>
-<!-- Login Card -->
-<div class="glass-card p-8 rounded-xl shadow-[0_0_40px_rgba(125,211,252,0.05)]">
-<div class="mb-8">
-<h2 class="text-xl font-medium text-on-surface mb-1">Welcome Back</h2>
-<p class="text-on-surface-variant text-sm">Please enter your credentials to continue.</p>
-</div>
-<form class="space-y-6">
-<!-- Email Input -->
-<div class="space-y-2">
-<label class="block text-xs font-medium text-on-surface-variant uppercase tracking-wider ml-1" for="email">Email Address</label>
-<div class="relative group">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">mail</span>
-<input class="glass-input w-full pl-10 pr-4 py-3 rounded-lg text-on-surface placeholder:text-outline focus:ring-0" id="email" placeholder="name@glacier.com" type="email"/>
-</div>
-</div>
-<!-- Password Input -->
-<div class="space-y-2">
-<label class="block text-xs font-medium text-on-surface-variant uppercase tracking-wider ml-1" for="password">Password</label>
-<div class="relative group">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">lock</span>
-<input class="glass-input w-full pl-10 pr-12 py-3 rounded-lg text-on-surface placeholder:text-outline focus:ring-0" id="password" placeholder="••••••••" type="password"/>
-<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors" type="button">
-<span class="material-symbols-outlined text-lg">visibility</span>
-</button>
-</div>
-</div>
-<!-- Remember & Forgot -->
-<div class="flex items-center justify-between text-sm">
-<label class="flex items-center cursor-pointer group">
-<div class="relative flex items-center">
-<input class="peer hidden" type="checkbox"/>
-<div class="w-5 h-5 rounded border border-outline bg-surface-container group-hover:border-primary/50 transition-all peer-checked:bg-primary-container peer-checked:border-primary"></div>
-<span class="material-symbols-outlined absolute inset-0 text-xs text-on-primary-container opacity-0 peer-checked:opacity-100 flex items-center justify-center">check</span>
-</div>
-<span class="ml-2 text-on-surface-variant group-hover:text-on-surface transition-colors">Remember me</span>
-</label>
-<a class="text-primary hover:text-primary-fixed-dim transition-colors font-medium" href="#">Forgot password?</a>
-</div>
-<!-- Login Button -->
-<button class="w-full bg-primary-container/40 border border-primary/20 hover:bg-primary-container/60 hover:border-primary/40 text-on-primary-container font-semibold py-3.5 rounded-lg transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(125,211,252,0.1)]" type="submit">
-                    Login to Dashboard
-                </button>
-</form>
-<!-- Divider -->
-<div class="relative my-8">
-<div class="absolute inset-0 flex items-center">
-<div class="w-full border-t border-outline-variant"></div>
-</div>
-<div class="relative flex justify-center text-xs uppercase tracking-widest">
-<span class="bg-[#0f1524] px-4 text-on-surface-variant">Or continue with</span>
-</div>
-</div>
-<!-- Social Logins -->
-<div class="grid grid-cols-2 gap-4">
-<button class="glass-input flex items-center justify-center gap-2 py-3 rounded-lg hover:bg-surface-container-highest transition-colors group">
-<img alt="Google" class="w-4 h-4 grayscale group-hover:grayscale-0 transition-all" data-alt="minimalist google logo icon on a white background with clean circular shape" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkSOZTtPNmtGU0SmTTdFJ8XtW0LI8ossIz0KWRv-x1oY_D0VBvxETZSksY5tb2m_zM21ByIVLzQyst8Nxaxe7bVW7pwP_HVxJ2IOAJ0oxrTuqbsSH5eO7vvyP3x_qT-dUvZZVs4eJt9lS_S9p7XOD_oLbQPXH3gPx249kpE6oWb3_ROXNoY19HLh-WSWPY4GEiIhOzzYH_EYmYwi8e8Vlysx-v2Nf-2SXuqVCEpRp3DijRp3TOAxxLSg0WPPe4X6zusj-jYNNvUqo"/>
-<span class="text-sm font-medium text-on-surface">Google</span>
-</button>
-<button class="glass-input flex items-center justify-center gap-2 py-3 rounded-lg hover:bg-surface-container-highest transition-colors group">
-<span class="material-symbols-outlined text-lg text-on-surface-variant group-hover:text-primary">terminal</span>
-<span class="text-sm font-medium text-on-surface">SSO</span>
-</button>
-</div>
-<!-- Signup Prompt -->
-<div class="mt-8 text-center text-sm">
-<span class="text-on-surface-variant">New partner? </span>
-<a class="text-primary hover:underline font-medium" href="#">Apply for account</a>
-</div>
-</div>
-<!-- Footer Links (Semantic from JSON guidelines) -->
-<div class="mt-12 flex justify-center gap-6 text-xs text-slate-500 font-inter">
-<a class="hover:text-sky-200 transition-colors" href="#">Terms of Service</a>
-<a class="hover:text-sky-200 transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-sky-200 transition-colors" href="#">Wholesale FAQ</a>
-</div>
-<p class="mt-4 text-center text-[10px] text-slate-600 uppercase tracking-widest">
-            © 2024 Glacier Card Platform. All rights reserved.
-        </p>
-</main>
-<!-- Decorative Bottom Gradient -->
-<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-</body></html>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(125, 211, 252, 0.18), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(200, 160, 240, 0.14), transparent 30%),
+          #0a0e1a;
+      }
+      .glass-panel {
+        background: rgba(15, 21, 36, 0.72);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(125, 211, 252, 0.12);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-background text-white">
+    <main class="mx-auto flex min-h-screen max-w-6xl items-center px-4 py-12 sm:px-6">
+      <div class="grid w-full gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <section class="glass-panel rounded-[2rem] p-8 sm:p-10">
+          <div class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+            Buyer Access
+          </div>
+          <h1 class="mt-6 text-4xl font-semibold leading-tight">
+            Log in with your buyer account to place orders.
+          </h1>
+          <p class="mt-4 text-sm leading-7 text-slate-300">
+            The backend expects <code>username + password</code>. This form now submits directly to <code>/api/v1/auth/login</code> and stores the returned bearer token for the order pages.
+          </p>
+          <div class="mt-8 grid gap-4 sm:grid-cols-3">
+            <div class="rounded-2xl border border-white/5 bg-white/5 p-4">
+              <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Auth</div>
+              <div class="mt-2 font-semibold">Bearer Token</div>
+            </div>
+            <div class="rounded-2xl border border-white/5 bg-white/5 p-4">
+              <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Orders</div>
+              <div class="mt-2 font-semibold">Protected APIs</div>
+            </div>
+            <div class="rounded-2xl border border-white/5 bg-white/5 p-4">
+              <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Redirect</div>
+              <div class="mt-2 font-semibold">Respects next=</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="glass-panel rounded-[2rem] p-8 sm:p-10">
+          <div class="flex items-center justify-between">
+            <a class="text-xl font-semibold text-primary" href="/portal/index_web/index_web.html">Glacier Card</a>
+            <a class="text-sm text-slate-300 transition hover:text-white" href="/portal/sign_up_web/sign_up_web.html">Create account</a>
+          </div>
+
+          <form class="mt-10 space-y-5" id="login-form">
+            <div>
+              <label class="mb-2 block text-sm text-slate-300" for="username">Username</label>
+              <input
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-0"
+                id="username"
+                name="username"
+                placeholder="buyer_account"
+                required
+                type="text"
+              />
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm text-slate-300" for="password">Password</label>
+              <input
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-0"
+                id="password"
+                name="password"
+                placeholder="At least 6 characters"
+                required
+                type="password"
+              />
+            </div>
+
+            <div class="hidden rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200" id="error-box"></div>
+            <div class="hidden rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200" id="success-box"></div>
+
+            <button
+              class="w-full rounded-2xl bg-primary px-4 py-3 font-semibold text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+              id="submit-button"
+              type="submit"
+            >
+              Log In
+            </button>
+          </form>
+
+          <p class="mt-6 text-sm text-slate-400">
+            No account yet?
+            <a class="text-primary transition hover:text-sky-200" id="signup-link" href="/portal/sign_up_web/sign_up_web.html">Register here</a>
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      (function () {
+        var app = window.PortalApp;
+        var form = document.getElementById("login-form");
+        var errorBox = document.getElementById("error-box");
+        var successBox = document.getElementById("success-box");
+        var submitButton = document.getElementById("submit-button");
+        var signupLink = document.getElementById("signup-link");
+        var nextPath = app.getNextPath(app.ORDER_PAGE);
+
+        signupLink.href = "/portal/sign_up_web/sign_up_web.html?next=" + encodeURIComponent(nextPath);
+
+        function setMessage(box, message) {
+          box.textContent = message;
+          box.classList.remove("hidden");
+        }
+
+        function clearMessages() {
+          errorBox.classList.add("hidden");
+          successBox.classList.add("hidden");
+          errorBox.textContent = "";
+          successBox.textContent = "";
+        }
+
+        form.addEventListener("submit", async function (event) {
+          event.preventDefault();
+          clearMessages();
+
+          var formData = new FormData(form);
+          var username = String(formData.get("username") || "").trim();
+          var password = String(formData.get("password") || "");
+
+          if (!username || !password) {
+            setMessage(errorBox, "Username and password are required.");
+            return;
+          }
+
+          submitButton.disabled = true;
+          submitButton.textContent = "Signing In...";
+
+          try {
+            var data = await app.api("/api/v1/auth/login", {
+              method: "POST",
+              body: {
+                username: username,
+                password: password,
+              },
+            });
+            app.saveSession(data);
+            setMessage(successBox, "Login successful. Redirecting...");
+            window.setTimeout(function () {
+              window.location.href = nextPath;
+            }, 500);
+          } catch (error) {
+            setMessage(errorBox, error.message);
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Log In";
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

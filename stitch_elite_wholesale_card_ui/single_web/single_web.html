@@ -1,245 +1,453 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Netflix Premium UHD - Glacier Card</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Product Checkout | Glacier Card</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="../shared/portal.js"></script>
+    <script>
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
-            "colors": {
-                    "surface-variant": "#1a2438",
-                    "secondary-container": "#1a3a4e",
-                    "primary": "#7dd3fc",
-                    "inverse-surface": "#e0e8f0",
-                    "primary-fixed-dim": "#7dd3fc",
-                    "tertiary-fixed-dim": "#c8a0f0",
-                    "primary-fixed": "#c8eaff",
-                    "on-error": "#1a0000",
-                    "on-primary": "#001f2e",
-                    "on-background": "#e0e8f0",
-                    "error-container": "#3d1414",
-                    "tertiary-fixed": "#e8d0ff",
-                    "on-surface-variant": "#a0b4c4",
-                    "on-secondary-fixed-variant": "#2a4a5e",
-                    "surface-container-high": "#1a2438",
-                    "on-secondary-container": "#c0d8e8",
-                    "outline": "#4a6070",
-                    "surface-container-low": "#111828",
-                    "on-secondary-fixed": "#0d1f2b",
-                    "inverse-on-surface": "#0a0e1a",
-                    "tertiary-container": "#3d2060",
-                    "on-tertiary-fixed-variant": "#4d2a73",
-                    "secondary-fixed": "#c0d8e8",
-                    "secondary-fixed-dim": "#88b4cc",
-                    "surface-container-lowest": "#0a0e1a",
-                    "surface-tint": "#7dd3fc",
-                    "surface": "#0f1524",
-                    "on-primary-fixed": "#001f2e",
-                    "on-surface": "#e0e8f0",
-                    "on-error-container": "#ffb3b3",
-                    "background": "#0a0e1a",
-                    "secondary": "#88b4cc",
-                    "on-secondary": "#001f2e",
-                    "primary-container": "#0e4d6e",
-                    "on-tertiary-fixed": "#1a002e",
-                    "on-tertiary-container": "#e8d0ff",
-                    "inverse-primary": "#0a4c6e",
-                    "error": "#ff6b6b",
-                    "on-tertiary": "#1a002e",
-                    "surface-bright": "#1a2438",
-                    "tertiary": "#c8a0f0",
-                    "surface-dim": "#0f1524",
-                    "surface-container-highest": "#202c42",
-                    "surface-container": "#141c2e",
-                    "outline-variant": "#2a3a48",
-                    "on-primary-fixed-variant": "#004d73",
-                    "on-primary-container": "#c8eaff"
+            colors: {
+              primary: "#7dd3fc",
+              background: "#0a0e1a",
             },
-            "borderRadius": {
-                    "DEFAULT": "0.5rem",
-                    "lg": "1rem",
-                    "xl": "1.5rem",
-                    "full": "9999px"
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
             },
-            "fontFamily": {
-                    "headline": ["Inter"],
-                    "body": ["Inter"],
-                    "label": ["Inter"]
-            }
           },
         },
-      }
+      };
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .glass-panel {
-            background: rgba(15, 21, 36, 0.6);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(125, 211, 252, 0.1);
-        }
-        .glass-panel-elevated {
-            background: rgba(15, 21, 36, 0.75);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(125, 211, 252, 0.15);
-        }
-        .frozen-glow {
-            box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
-        }
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(125, 211, 252, 0.14), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(200, 160, 240, 0.12), transparent 30%),
+          #0a0e1a;
+      }
+      .glass-panel {
+        background: rgba(15, 21, 36, 0.72);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(125, 211, 252, 0.12);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
     </style>
-</head>
-<body class="bg-background text-on-background font-body min-h-screen">
-<!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-slate-950/60 backdrop-blur-xl border-b border-sky-300/10 shadow-[0_0_30px_rgba(125,211,252,0.05)]">
-<div class="flex justify-between items-center h-16 px-8 max-w-full">
-<div class="flex items-center gap-8">
-<span class="text-2xl font-semibold text-sky-300 tracking-wider font-inter">Glacier Card</span>
-<div class="hidden md:flex items-center gap-6">
-<a class="text-sky-300 border-b-2 border-sky-300 pb-1 font-inter tracking-tight" href="#">Marketplace</a>
-<a class="text-slate-400 hover:text-sky-200 hover:bg-white/5 transition-colors font-inter tracking-tight" href="#">Bundles</a>
-<a class="text-slate-400 hover:text-sky-200 hover:bg-white/5 transition-colors font-inter tracking-tight" href="#">My Assets</a>
-<a class="text-slate-400 hover:text-sky-200 hover:bg-white/5 transition-colors font-inter tracking-tight" href="#">Support</a>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<button class="text-sky-300 hover:text-sky-200 transition-colors p-2">
-<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
-</button>
-<button class="text-sky-300 hover:text-sky-200 transition-colors p-2">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-</button>
-<div class="w-8 h-8 rounded-full overflow-hidden border border-sky-300/20">
-<img alt="User profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man in a dark environment with soft blue rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkn1WWUVyP8dsWtS8q0INLfSqKu-TnWSB1Ktsw0aByp16VMm-czI6aU15jnxpV-keDGsGm9tv1xedCYqLZmchOCJKksx9drZmIubH2cgmsfeAbW-jWHAw-z1B54IMp3qBhuIcrv14-JhbNSklMvzBbv2wBgxRnlnRsPI5fAWnbwFEhtQv9zIkeQ93gUVc96BzaPJZpx6HeZqSNr3J5yhykV6yzDqL_v2NqNFGuFh23CL4PjBPrkji3eAuWp7gKnCYUQk873PP7LBI"/>
-</div>
-</div>
-</div>
-</nav>
-<main class="pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-<!-- Left Column: Product Details -->
-<div class="lg:col-span-7 space-y-8">
-<section class="glass-panel rounded-xl overflow-hidden frozen-glow border border-white/5">
-<div class="relative group">
-<div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-primary opacity-20 blur-2xl group-hover:opacity-30 transition duration-1000"></div>
-<div class="relative">
-<img alt="Netflix Gift Card" class="w-full aspect-[16/9] object-cover" data-alt="Premium Netflix gift card with a sleek black and red metallic finish, glowing edges, positioned on a dark reflective surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVt9moZvf5tnUZXIdCQj9u1o-ezyqooWUUAtPhJhL3-56GcI-ObFvE2w49qsnYxnieemShPbkihDnnbwGEzIQW8VShxqJ95TmkXcpxEWIbnVVSUu0eEFoIPEvpZukOSiZcjnoOtsqLCN1CgmPrYmJdPBTqagxM88fKlBblOS_HFP3hf1EMWPvcOcJxYz2G6ZL43zw8c4GJKqnvId-vqy7tZHYXwsXyNGukDDTr1pw3vSilyLE6Q9tQDGuVXIt7skU19o8RCxcOjgs"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-<div class="absolute bottom-6 left-6">
-<span class="text-white font-bold tracking-widest text-lg">PREMIUM UHD</span>
-</div>
-</div>
-</div>
-<div class="p-8 space-y-6">
-<div class="space-y-4">
-<div class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-widest uppercase">
-                                Auto-Refill Status: Active
-                            </div>
-<h1 class="text-4xl font-bold text-on-surface tracking-tight leading-tight">
-                                Netflix Premium <span class="text-primary">UHD Subscription</span>
-</h1>
-<p class="text-on-surface-variant text-lg leading-relaxed">
-                                Unlock the ultimate cinematic experience. High-performance access to Netflix Premium UHD, featuring 4K streaming and 4 simultaneous screens.
-                            </p>
-</div>
-<!-- Product Features Grid -->
-<div class="grid grid-cols-3 gap-4">
-<div class="flex flex-col items-center p-4 rounded-lg bg-white/5 border border-white/5 text-center">
-<span class="material-symbols-outlined text-primary mb-2" data-icon="bolt">bolt</span>
-<span class="text-xs font-medium text-on-surface-variant uppercase tracking-wider">Instant Delivery</span>
-</div>
-<div class="flex flex-col items-center p-4 rounded-lg bg-white/5 border border-white/5 text-center">
-<span class="material-symbols-outlined text-primary mb-2" data-icon="public">public</span>
-<span class="text-xs font-medium text-on-surface-variant uppercase tracking-wider">Global Region</span>
-</div>
-<div class="flex flex-col items-center p-4 rounded-lg bg-white/5 border border-white/5 text-center">
-<span class="material-symbols-outlined text-primary mb-2" data-icon="high_definition">hd</span>
-<span class="text-xs font-medium text-on-surface-variant uppercase tracking-wider">4K UHD Quality</span>
-</div>
-</div>
-</div>
-</section>
-</div>
-<!-- Right Column: Transaction Area -->
-<div class="lg:col-span-5">
-<div class="glass-panel-elevated rounded-xl p-8 space-y-8 frozen-glow sticky top-24 border border-primary/20">
-<!-- 1. Quantity Selector -->
-<div class="space-y-4">
-<div class="flex justify-between items-center">
-<h3 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Quantity</h3>
-<div class="flex items-center gap-4 bg-slate-900 rounded-lg p-1 border border-white/10">
-<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors text-xl">-</button>
-<span class="text-on-surface font-bold w-10 text-center text-lg">1</span>
-<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors text-xl">+</button>
-</div>
-</div>
-</div>
-<!-- 2. Payment Method -->
-<div class="space-y-4">
-<h3 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Payment Method</h3>
-<div class="grid grid-cols-3 gap-3">
-<button class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-primary bg-primary/10 transition-all">
-<span class="material-symbols-outlined text-primary mb-1" data-icon="currency_bitcoin">currency_bitcoin</span>
-<span class="text-[10px] font-bold text-on-surface uppercase">USDT</span>
-</button>
-<button class="flex flex-col items-center justify-center p-4 rounded-lg border border-white/10 hover:border-primary/40 hover:bg-white/5 transition-all">
-<span class="material-symbols-outlined text-on-surface-variant mb-1" data-icon="credit_card">credit_card</span>
-<span class="text-[10px] font-bold text-on-surface uppercase">Card</span>
-</button>
-<button class="flex flex-col items-center justify-center p-4 rounded-lg border border-white/10 hover:border-primary/40 hover:bg-white/5 transition-all">
-<span class="material-symbols-outlined text-on-surface-variant mb-1" data-icon="account_balance_wallet">account_balance_wallet</span>
-<span class="text-[10px] font-bold text-on-surface uppercase">Alipay</span>
-</button>
-</div>
-</div>
-<!-- 3. Order Summary -->
-<div class="pt-6 border-t border-white/10 space-y-4">
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant font-medium">Subtotal</span>
-<span class="text-on-surface">¥110.00</span>
-</div>
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant font-medium">Order Discount</span>
-<span class="text-primary">-¥0.00</span>
-</div>
-<div class="flex justify-between items-baseline pt-2">
-<span class="text-lg font-bold text-on-surface">Total</span>
-<span class="text-3xl font-bold text-primary">¥110.00</span>
-</div>
-</div>
-<!-- 4. Buy Now Button -->
-<div class="space-y-4">
-<button class="w-full py-5 bg-primary text-on-primary font-bold rounded-xl shadow-[0_0_30px_rgba(125,211,252,0.3)] hover:brightness-110 active:scale-[0.98] transition-all uppercase tracking-[0.2em] text-sm">
-                            Buy Now
-                        </button>
-<div class="flex items-center justify-center gap-2 text-[10px] text-on-surface-variant uppercase tracking-widest">
-<span class="material-symbols-outlined text-xs" data-icon="lock">lock</span>
-                            Secure Encrypted Transaction
-                        </div>
-</div>
-</div>
-</div>
-</div>
-</main>
-<!-- Footer -->
-<footer class="w-full py-12 border-t border-sky-300/10 bg-slate-950 mt-12">
-<div class="flex flex-col md:flex-row justify-between items-center px-12 gap-6">
-<div class="flex flex-col items-center md:items-start gap-2">
-<span class="text-sky-300 font-bold text-xl">Glacier Card</span>
-<span class="text-slate-500 font-inter text-sm">© 2024 Glacier Card Wholesale. All rights reserved.</span>
-</div>
-<div class="flex gap-8">
-<a class="text-slate-500 hover:text-sky-400 transition-colors font-inter text-sm" href="#">Terms of Service</a>
-<a class="text-slate-500 hover:text-sky-400 transition-colors font-inter text-sm" href="#">Privacy Policy</a>
-<a class="text-slate-500 hover:text-sky-400 transition-colors font-inter text-sm" href="#">API Docs</a>
-<a class="text-slate-500 hover:text-sky-400 transition-colors font-inter text-sm" href="#">Refund Policy</a>
-</div>
-</div>
-</footer>
-</body></html>
+  </head>
+  <body class="min-h-screen bg-background text-white">
+    <nav class="sticky top-0 z-40 border-b border-white/5 bg-slate-950/70 backdrop-blur-xl">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
+        <a class="text-xl font-semibold tracking-tight text-primary" href="/portal/index_web/index_web.html">
+          Glacier Card
+        </a>
+        <div class="flex items-center gap-3 text-sm" id="nav-actions"></div>
+      </div>
+    </nav>
+
+    <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+      <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+        <section class="glass-panel overflow-hidden rounded-[2rem]">
+          <img alt="Product artwork" class="h-72 w-full object-cover sm:h-96" id="product-image" />
+          <div class="space-y-6 p-8">
+            <div>
+              <div class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary" id="product-badge">
+                Live Product
+              </div>
+              <h1 class="mt-4 text-4xl font-semibold leading-tight" id="product-name">Loading product...</h1>
+              <p class="mt-4 max-w-3xl text-sm leading-7 text-slate-300" id="product-description"></p>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-3">
+              <div class="rounded-2xl border border-white/5 bg-white/5 p-4">
+                <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Starting Price</div>
+                <div class="mt-2 text-2xl font-semibold text-primary" id="product-price">-</div>
+              </div>
+              <div class="rounded-2xl border border-white/5 bg-white/5 p-4">
+                <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Available Stock</div>
+                <div class="mt-2 text-2xl font-semibold" id="product-stock">-</div>
+              </div>
+              <div class="rounded-2xl border border-white/5 bg-white/5 p-4">
+                <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Active Tier</div>
+                <div class="mt-2 text-2xl font-semibold" id="product-tier">-</div>
+              </div>
+            </div>
+
+            <div>
+              <h2 class="text-lg font-semibold">Wholesale Pricing Rules</h2>
+              <div class="mt-4 overflow-hidden rounded-3xl border border-white/5">
+                <table class="w-full text-left text-sm">
+                  <thead class="bg-white/5 text-slate-400">
+                    <tr>
+                      <th class="px-4 py-3 font-medium">Quantity</th>
+                      <th class="px-4 py-3 font-medium">Unit Price</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5" id="pricing-table"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="glass-panel rounded-[2rem] p-8">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm uppercase tracking-[0.2em] text-slate-500">Create Order</div>
+              <h2 class="mt-2 text-3xl font-semibold">Checkout</h2>
+            </div>
+            <span class="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary" id="login-status">
+              Buyer Session
+            </span>
+          </div>
+
+          <form class="mt-8 space-y-5" id="order-form">
+            <div>
+              <label class="mb-2 block text-sm text-slate-300" for="quantity">Quantity</label>
+              <div class="flex items-center gap-3">
+                <button class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xl transition hover:bg-white/10" id="decrease-qty" type="button">-</button>
+                <input
+                  class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-center text-lg text-white focus:border-primary focus:outline-none focus:ring-0"
+                  id="quantity"
+                  max="1"
+                  min="1"
+                  required
+                  type="number"
+                  value="1"
+                />
+                <button class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xl transition hover:bg-white/10" id="increase-qty" type="button">+</button>
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm text-slate-300" for="email">Contact Email</label>
+              <input
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-0"
+                id="email"
+                name="email"
+                placeholder="buyer@example.com"
+                required
+                type="email"
+              />
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm text-slate-300" for="name">Buyer Name</label>
+              <input
+                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-0"
+                id="name"
+                name="name"
+                placeholder="Optional display name"
+                type="text"
+              />
+            </div>
+
+            <div>
+              <div class="mb-2 text-sm text-slate-300">Payment Channel</div>
+              <div class="grid gap-3 sm:grid-cols-3" id="pay-channel-list"></div>
+            </div>
+
+            <div class="rounded-3xl border border-white/5 bg-white/5 p-5">
+              <div class="flex items-center justify-between text-sm text-slate-300">
+                <span>Unit price</span>
+                <span id="summary-unit-price">-</span>
+              </div>
+              <div class="mt-3 flex items-center justify-between text-sm text-slate-300">
+                <span>Total quantity</span>
+                <span id="summary-quantity">1</span>
+              </div>
+              <div class="mt-3 flex items-center justify-between border-t border-white/5 pt-3">
+                <span class="text-base font-medium text-white">Total amount</span>
+                <span class="text-3xl font-semibold text-primary" id="summary-total-price">-</span>
+              </div>
+            </div>
+
+            <div class="hidden rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-200" id="login-hint">
+              You can browse product details without logging in. Creating an order requires a buyer token.
+            </div>
+            <div class="hidden rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200" id="error-box"></div>
+
+            <button
+              class="w-full rounded-2xl bg-primary px-4 py-3 font-semibold text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+              id="submit-button"
+              type="submit"
+            >
+              Create Order
+            </button>
+          </form>
+        </aside>
+      </div>
+    </main>
+
+    <script>
+      (function () {
+        var app = window.PortalApp;
+        var state = {
+          product: null,
+          payChannel: "usdt",
+        };
+        var params = new URLSearchParams(window.location.search);
+        var productId = params.get("id");
+        var navActions = document.getElementById("nav-actions");
+        var productImage = document.getElementById("product-image");
+        var productName = document.getElementById("product-name");
+        var productDescription = document.getElementById("product-description");
+        var productPrice = document.getElementById("product-price");
+        var productStock = document.getElementById("product-stock");
+        var productTier = document.getElementById("product-tier");
+        var productBadge = document.getElementById("product-badge");
+        var pricingTable = document.getElementById("pricing-table");
+        var quantityInput = document.getElementById("quantity");
+        var emailInput = document.getElementById("email");
+        var nameInput = document.getElementById("name");
+        var payChannelList = document.getElementById("pay-channel-list");
+        var summaryUnitPrice = document.getElementById("summary-unit-price");
+        var summaryQuantity = document.getElementById("summary-quantity");
+        var summaryTotalPrice = document.getElementById("summary-total-price");
+        var loginStatus = document.getElementById("login-status");
+        var loginHint = document.getElementById("login-hint");
+        var errorBox = document.getElementById("error-box");
+        var submitButton = document.getElementById("submit-button");
+        var form = document.getElementById("order-form");
+
+        var payChannels = [
+          { value: "usdt", label: "USDT", icon: "currency_bitcoin" },
+          { value: "card", label: "Card", icon: "credit_card" },
+          { value: "alipay", label: "Alipay", icon: "account_balance_wallet" },
+        ];
+
+        function renderNav() {
+          var session = app.getSession();
+          if (!session) {
+            navActions.innerHTML =
+              '<a class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-white transition hover:bg-white/10" href="' +
+              app.buildLoginUrl(window.location.pathname + window.location.search) +
+              '">Log In</a>';
+            loginStatus.textContent = "Guest";
+            loginHint.classList.remove("hidden");
+            return;
+          }
+
+          navActions.innerHTML =
+            '<span class="hidden text-slate-300 sm:inline">' +
+            app.escapeHtml(session.username) +
+            "</span>" +
+            '<a class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-white transition hover:bg-white/10" href="/portal/order_web/order_web.html">Orders</a>' +
+            '<button class="rounded-xl bg-primary px-4 py-2 font-semibold text-slate-950 transition hover:brightness-110" id="logout-button" type="button">Log Out</button>';
+
+          loginStatus.textContent = "Buyer";
+          document.getElementById("logout-button").addEventListener("click", function () {
+            app.clearSession();
+            window.location.reload();
+          });
+        }
+
+        function renderPayChannels() {
+          payChannelList.innerHTML = payChannels
+            .map(function (channel) {
+              var active = state.payChannel === channel.value;
+              return (
+                '<button class="rounded-2xl border px-4 py-4 text-left transition ' +
+                (active
+                  ? "border-primary bg-primary/10 text-white"
+                  : "border-white/10 bg-white/5 text-slate-300 hover:bg-white/10") +
+                '" data-pay-channel="' +
+                channel.value +
+                '" type="button">' +
+                '<div class="material-symbols-outlined text-primary">' + channel.icon + "</div>" +
+                '<div class="mt-2 font-semibold">' + channel.label + "</div>" +
+                "</button>"
+              );
+            })
+            .join("");
+
+          Array.from(payChannelList.querySelectorAll("[data-pay-channel]")).forEach(function (button) {
+            button.addEventListener("click", function () {
+              state.payChannel = button.getAttribute("data-pay-channel");
+              renderPayChannels();
+            });
+          });
+        }
+
+        function currentQuantity() {
+          var quantity = Number(quantityInput.value || 1);
+          if (!Number.isFinite(quantity) || quantity < 1) {
+            quantity = 1;
+          }
+          if (state.product && state.product.stock > 0) {
+            quantity = Math.min(quantity, Number(state.product.stock));
+          }
+          quantityInput.value = String(quantity);
+          return quantity;
+        }
+
+        function updateSummary() {
+          if (!state.product) {
+            return;
+          }
+          var quantity = currentQuantity();
+          var unitPrice = app.calculateUnitPrice(
+            state.product.wholesale_rules,
+            quantity,
+            state.product.price
+          );
+          summaryUnitPrice.textContent = app.formatMoney(unitPrice);
+          summaryQuantity.textContent = String(quantity);
+          summaryTotalPrice.textContent = app.formatMoney(unitPrice * quantity);
+          productTier.textContent = quantity + "+";
+        }
+
+        function renderProduct() {
+          if (!state.product) {
+            return;
+          }
+
+          productImage.src = app.productArtwork(state.product.id);
+          productName.textContent = state.product.name;
+          productDescription.textContent = state.product.description;
+          productPrice.textContent = app.formatMoney(state.product.price);
+          productStock.textContent = Number(state.product.stock || 0).toLocaleString("en-US");
+          productBadge.textContent = Number(state.product.stock || 0) > 0 ? "In Stock" : "Out of Stock";
+          quantityInput.max = String(Math.max(1, Number(state.product.stock || 1)));
+
+          pricingTable.innerHTML = (state.product.wholesale_rules || [])
+            .map(function (rule) {
+              var range = rule.max ? rule.min + " - " + rule.max : rule.min + "+";
+              return (
+                "<tr>" +
+                '<td class="px-4 py-3 text-slate-300">' + range + "</td>" +
+                '<td class="px-4 py-3 font-medium text-white">' + app.formatMoney(rule.price) + "</td>" +
+                "</tr>"
+              );
+            })
+            .join("");
+
+          if (!pricingTable.innerHTML) {
+            pricingTable.innerHTML =
+              '<tr><td class="px-4 py-3 text-slate-300" colspan="2">No pricing rules returned by the backend.</td></tr>';
+          }
+
+          if (Number(state.product.stock || 0) <= 0) {
+            submitButton.disabled = true;
+            submitButton.textContent = "Out of Stock";
+            setError("This product is currently out of stock.");
+          }
+
+          updateSummary();
+        }
+
+        function setError(message) {
+          errorBox.textContent = message;
+          errorBox.classList.remove("hidden");
+        }
+
+        function clearError() {
+          errorBox.classList.add("hidden");
+          errorBox.textContent = "";
+        }
+
+        async function loadProduct() {
+          if (!productId) {
+            setError("Missing product id in the URL.");
+            submitButton.disabled = true;
+            return;
+          }
+
+          try {
+            state.product = await app.api("/api/v1/products/" + encodeURIComponent(productId));
+            var checkoutDraft = app.getCheckoutDraft();
+            emailInput.value = checkoutDraft.email || "";
+            nameInput.value = checkoutDraft.name || "";
+            renderProduct();
+          } catch (error) {
+            setError(error.message);
+            submitButton.disabled = true;
+          }
+        }
+
+        document.getElementById("decrease-qty").addEventListener("click", function () {
+          quantityInput.value = String(Math.max(1, currentQuantity() - 1));
+          updateSummary();
+        });
+
+        document.getElementById("increase-qty").addEventListener("click", function () {
+          quantityInput.value = String(currentQuantity() + 1);
+          updateSummary();
+        });
+
+        quantityInput.addEventListener("input", updateSummary);
+
+        form.addEventListener("submit", async function (event) {
+          event.preventDefault();
+          clearError();
+
+          var session = app.getSession();
+          if (!session) {
+            app.requireLogin(window.location.pathname + window.location.search);
+            return;
+          }
+
+          if (!state.product) {
+            setError("Product data is still loading.");
+            return;
+          }
+
+          var quantity = currentQuantity();
+          var email = emailInput.value.trim();
+          var name = nameInput.value.trim();
+
+          if (!email) {
+            setError("Contact email is required.");
+            return;
+          }
+
+          submitButton.disabled = true;
+          submitButton.textContent = "Creating Order...";
+
+          try {
+            app.saveCheckoutDraft({ email: email, name: name });
+            var data = await app.api("/api/v1/orders", {
+              method: "POST",
+              auth: true,
+              body: {
+                product_id: Number(state.product.id),
+                quantity: quantity,
+                pay_channel: state.payChannel,
+                email: email,
+                name: name,
+              },
+            });
+            window.location.href =
+              "/portal/order_web/order_web.html?order_no=" + encodeURIComponent(data.order_no);
+          } catch (error) {
+            if (error.status === 401 || error.status === 403) {
+              app.requireLogin(window.location.pathname + window.location.search);
+              return;
+            }
+            setError(error.message);
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Create Order";
+          }
+        });
+
+        renderNav();
+        renderPayChannels();
+        loadProduct();
+      })();
+    </script>
+  </body>
+</html>
