@@ -1,195 +1,35 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Login | Glacier Card</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <script src="../shared/portal.js"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#7dd3fc",
-              background: "#0a0e1a",
-              panel: "#141c2e",
-            },
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-        background:
-          radial-gradient(circle at top left, rgba(125, 211, 252, 0.18), transparent 30%),
-          radial-gradient(circle at bottom right, rgba(200, 160, 240, 0.14), transparent 30%),
-          #0a0e1a;
-      }
-      .glass-panel {
-        background: rgba(15, 21, 36, 0.72);
-        backdrop-filter: blur(18px);
-        border: 1px solid rgba(125, 211, 252, 0.12);
-      }
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-      }
-    </style>
-  </head>
-  <body class="min-h-screen bg-background text-white">
-    <main class="mx-auto flex min-h-screen max-w-6xl items-center px-4 py-12 sm:px-6">
-      <div class="grid w-full gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-        <section class="glass-panel rounded-[2rem] p-8 sm:p-10">
-          <div class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-            Buyer Access
-          </div>
-          <h1 class="mt-6 text-4xl font-semibold leading-tight">
-            Log in with your buyer account to place orders.
-          </h1>
-          <p class="mt-4 text-sm leading-7 text-slate-300">
-            The backend expects <code>username + password</code>. This form now submits directly to <code>/api/v1/auth/login</code> and stores the returned bearer token for the order pages.
-          </p>
-          <div class="mt-8 grid gap-4 sm:grid-cols-3">
-            <div class="rounded-2xl border border-white/5 bg-white/5 p-4">
-              <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Auth</div>
-              <div class="mt-2 font-semibold">Bearer Token</div>
-            </div>
-            <div class="rounded-2xl border border-white/5 bg-white/5 p-4">
-              <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Orders</div>
-              <div class="mt-2 font-semibold">Protected APIs</div>
-            </div>
-            <div class="rounded-2xl border border-white/5 bg-white/5 p-4">
-              <div class="text-xs uppercase tracking-[0.2em] text-slate-500">Redirect</div>
-              <div class="mt-2 font-semibold">Respects next=</div>
-            </div>
-          </div>
-        </section>
-
-        <section class="glass-panel rounded-[2rem] p-8 sm:p-10">
-          <div class="flex items-center justify-between">
-            <a class="text-xl font-semibold text-primary" href="/portal/index_web/index_web.html">Glacier Card</a>
-            <a class="text-sm text-slate-300 transition hover:text-white" href="/portal/sign_up_web/sign_up_web.html">Create account</a>
-          </div>
-
-          <form class="mt-10 space-y-5" id="login-form">
-            <div>
-              <label class="mb-2 block text-sm text-slate-300" for="username">Username</label>
-              <input
-                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-0"
-                id="username"
-                name="username"
-                placeholder="buyer_account"
-                required
-                type="text"
-              />
-            </div>
-
-            <div>
-              <label class="mb-2 block text-sm text-slate-300" for="password">Password</label>
-              <input
-                class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-0"
-                id="password"
-                name="password"
-                placeholder="At least 6 characters"
-                required
-                type="password"
-              />
-            </div>
-
-            <div class="hidden rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200" id="error-box"></div>
-            <div class="hidden rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200" id="success-box"></div>
-
-            <button
-              class="w-full rounded-2xl bg-primary px-4 py-3 font-semibold text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
-              id="submit-button"
-              type="submit"
-            >
-              Log In
-            </button>
-          </form>
-
-          <p class="mt-6 text-sm text-slate-400">
-            No account yet?
-            <a class="text-primary transition hover:text-sky-200" id="signup-link" href="/portal/sign_up_web/sign_up_web.html">Register here</a>
-          </p>
-        </section>
-      </div>
-    </main>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
     <script>
       (function () {
-        var app = window.PortalApp;
-        var form = document.getElementById("login-form");
-        var errorBox = document.getElementById("error-box");
-        var successBox = document.getElementById("success-box");
-        var submitButton = document.getElementById("submit-button");
-        var signupLink = document.getElementById("signup-link");
-        var nextPath = app.getNextPath(app.ORDER_PAGE);
-
-        signupLink.href = "/portal/sign_up_web/sign_up_web.html?next=" + encodeURIComponent(nextPath);
-
-        function setMessage(box, message) {
-          box.textContent = message;
-          box.classList.remove("hidden");
+        var params = new URLSearchParams(window.location.search);
+        var next = params.get("next");
+        var route = "/login";
+        if (next && next.indexOf("/portal/app/#") === 0) {
+          next = next.slice("/portal/app/#".length) || "/";
+        } else if (next && next.indexOf("/portal/index_web/index_web.html") === 0) {
+          next = "/";
+        } else if (next && next.indexOf("/portal/single_web/single_web.html") === 0) {
+          var productUrl = new URL(next, window.location.origin);
+          var productId = productUrl.searchParams.get("id");
+          next = productId ? "/product/" + encodeURIComponent(productId) : "/";
+        } else if (next && next.indexOf("/portal/order_web/order_web.html") === 0) {
+          var orderUrl = new URL(next, window.location.origin);
+          var orderNo = orderUrl.searchParams.get("order_no");
+          next = orderNo ? "/orders?order_no=" + encodeURIComponent(orderNo) : "/orders";
         }
-
-        function clearMessages() {
-          errorBox.classList.add("hidden");
-          successBox.classList.add("hidden");
-          errorBox.textContent = "";
-          successBox.textContent = "";
+        if (next) {
+          route += "?next=" + encodeURIComponent(next);
         }
-
-        form.addEventListener("submit", async function (event) {
-          event.preventDefault();
-          clearMessages();
-
-          var formData = new FormData(form);
-          var username = String(formData.get("username") || "").trim();
-          var password = String(formData.get("password") || "");
-
-          if (!username || !password) {
-            setMessage(errorBox, "Username and password are required.");
-            return;
-          }
-
-          submitButton.disabled = true;
-          submitButton.textContent = "Signing In...";
-
-          try {
-            var data = await app.api("/api/v1/auth/login", {
-              method: "POST",
-              body: {
-                username: username,
-                password: password,
-              },
-            });
-            app.saveSession(data);
-            setMessage(successBox, "Login successful. Redirecting...");
-            window.setTimeout(function () {
-              window.location.href = nextPath;
-            }, 500);
-          } catch (error) {
-            setMessage(errorBox, error.message);
-          } finally {
-            submitButton.disabled = false;
-            submitButton.textContent = "Log In";
-          }
-        });
+        window.location.replace("/portal/app/#" + route);
       })();
     </script>
+  </head>
+  <body>
+    <p>Redirecting to login...</p>
   </body>
 </html>
