@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004d73",
+                        "on-error": "#1a0000",
+                        "inverse-primary": "#0a4c6e",
+                        "secondary-fixed-dim": "#88b4cc",
+                        "primary-fixed": "#c8eaff",
+                        "on-secondary": "#001f2e",
+                        "primary": "#7dd3fc",
+                        "on-surface": "#e0e8f0",
+                        "tertiary-container": "#3d2060",
+                        "on-background": "#e0e8f0",
+                        "surface-bright": "#1a2438",
+                        "on-error-container": "#ffb3b3",
+                        "on-secondary-fixed": "#0d1f2b",
+                        "error-container": "#3d1414",
+                        "background": "#0a0e1a",
+                        "primary-fixed-dim": "#7dd3fc",
+                        "tertiary": "#c8a0f0",
+                        "surface-tint": "#7dd3fc",
+                        "tertiary-fixed": "#e8d0ff",
+                        "surface-container-lowest": "#0a0e1a",
+                        "on-secondary-container": "#c0d8e8",
+                        "inverse-on-surface": "#0a0e1a",
+                        "on-tertiary-fixed": "#1a002e",
+                        "surface-container": "#141c2e",
+                        "on-tertiary": "#1a002e",
+                        "error": "#ff6b6b",
+                        "on-primary": "#001f2e",
+                        "surface-container-low": "#111828",
+                        "on-primary-fixed": "#001f2e",
+                        "tertiary-fixed-dim": "#c8a0f0",
+                        "surface": "#0f1524",
+                        "surface-variant": "#1a2438",
+                        "on-primary-container": "#c8eaff",
+                        "primary-container": "#0e4d6e",
+                        "secondary-container": "#1a3a4e",
+                        "outline": "#4a6070",
+                        "secondary-fixed": "#c0d8e8",
+                        "on-tertiary-fixed-variant": "#4d2a73",
+                        "on-secondary-fixed-variant": "#2a4a5e",
+                        "inverse-surface": "#e0e8f0",
+                        "on-surface-variant": "#a0b4c4",
+                        "surface-container-highest": "#202c42",
+                        "secondary": "#88b4cc",
+                        "surface-dim": "#0f1524",
+                        "surface-container-high": "#1a2438",
+                        "outline-variant": "#2a3a48",
+                        "on-tertiary-container": "#e8d0ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(15, 21, 36, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(125, 211, 252, 0.1);
+        }
+        .glass-panel-elevated {
+            background: rgba(15, 21, 36, 0.75);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(125, 211, 252, 0.15);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-slate-950/60 backdrop-blur-xl border-b border-sky-400/10 shadow-[0_0_30px_rgba(125,211,252,0.05)]">
+<div class="flex items-center gap-8">
+<span class="text-xl font-semibold text-sky-300 font-inter tracking-tight">Glacier</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-slate-400 font-inter tracking-tight hover:text-sky-200 transition-colors active:scale-95 duration-200" href="#">Dashboard</a>
+<a class="text-sky-300 border-b-2 border-sky-400 pb-1 font-inter tracking-tight hover:text-sky-200 transition-colors active:scale-95 duration-200" href="#">Analytics</a>
+<a class="text-slate-400 font-inter tracking-tight hover:text-sky-200 transition-colors active:scale-95 duration-200" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="bg-slate-900/50 border border-sky-400/10 rounded-full py-1.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-sky-400/50 w-64" placeholder="Search cards..." type="text"/>
+</div>
+<button class="text-slate-400 hover:text-sky-200 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-slate-400 hover:text-sky-200 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-sky-400/20">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="close-up portrait of a professional executive in a dark modern office with soft blue ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN-4PYr5CMHQ31Is7yGU2pRCqMNh_hKD-taxVS3SJ6gjNY-69J4G8W8u_W1auS_Q1sWF5-lo9jtNVA2H1OV0ofw32fJVBwXn4ovJ01tg-GPi2U8gHxMgwhHulcpzSROSFwCmCsbUehNBO1CkuwZ039un3m54ncr3dy1jhJL6DfDoaZElByOdPjfpq_rScUEsJOEhwpXc0O-TawJWyOMkEHN3M_B9DEowjEaxcLWtFSSQeSJ2L-wsEuq2FeHajKhg_wll92jwbxoHg"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 pt-20 pb-6 flex flex-col z-40 bg-slate-950/75 backdrop-blur-2xl border-r border-sky-400/10 shadow-2xl font-inter text-sm">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-sky-400/10 flex items-center justify-center border border-sky-400/20">
+<span class="material-symbols-outlined text-sky-300" style="font-variation-settings: 'FILL' 1;">ac_unit</span>
+</div>
+<div>
+<h2 class="text-lg font-bold text-sky-300 leading-none">Glacier Admin</h2>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Premium Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-sky-200 transition-all active:translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-sky-400/10 text-sky-300 border-r-2 border-sky-400 font-medium active:translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span>Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-sky-200 transition-all active:translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-sky-200 transition-all active:translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-sky-200 transition-all active:translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto pt-6 space-y-4">
+<button class="w-full py-2.5 bg-primary/10 border border-primary/30 text-primary rounded-lg font-medium hover:bg-primary/20 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Order
+            </button>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-900/50 hover:text-sky-200 transition-all active:translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Help Center</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-8 pb-12">
+<div class="max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<h1 class="text-3xl font-semibold text-on-surface tracking-tight">Order Management</h1>
+<p class="text-on-surface-variant mt-1">Review and manage wholesale card distributions across your network.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="glass-panel bg-surface/40 border-outline-variant rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary/50 w-72 text-on-surface" placeholder="Filter by Order ID or Product..." type="text"/>
+</div>
+<button class="glass-panel px-4 py-2 flex items-center gap-2 text-on-surface hover:bg-surface-variant transition-colors rounded-lg">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+<span class="text-sm font-medium">Filter</span>
+</button>
+<button class="bg-primary/10 border border-primary/20 px-4 py-2 flex items-center gap-2 text-primary hover:bg-primary/20 transition-colors rounded-lg">
+<span class="material-symbols-outlined text-lg">download</span>
+<span class="text-sm font-medium">Export</span>
+</button>
+</div>
+</div>
+<!-- Main Order Table Card -->
+<div class="glass-panel-elevated rounded-xl overflow-hidden shadow-lg border border-primary/10">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-variant/30 text-on-surface-variant text-xs uppercase tracking-wider font-semibold border-b border-primary/5">
+<th class="px-6 py-4">Order ID</th>
+<th class="px-6 py-4">Product Name</th>
+<th class="px-6 py-4">Quantity</th>
+<th class="px-6 py-4">Total Price</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<!-- Order Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5 font-mono text-sm text-primary">#GLR-88219</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-gradient-to-br from-primary/20 to-tertiary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">credit_card</span>
+</div>
+<span class="font-medium text-on-surface">Glacier Platinum Elite</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">250 Units</td>
+<td class="px-6 py-5 font-semibold text-on-surface">$12,450.00</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5"></span>
+                                        Completed
+                                    </span>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">Oct 24, 2023</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Order Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5 font-mono text-sm text-primary">#GLR-88220</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-gradient-to-br from-primary/20 to-tertiary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">credit_card</span>
+</div>
+<span class="font-medium text-on-surface">Standard Corporate Blue</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">1,000 Units</td>
+<td class="px-6 py-5 font-semibold text-on-surface">$8,200.00</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1.5"></span>
+                                        Pending
+                                    </span>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">Oct 25, 2023</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Order Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5 font-mono text-sm text-primary">#GLR-88221</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-gradient-to-br from-primary/20 to-tertiary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">credit_card</span>
+</div>
+<span class="font-medium text-on-surface">Infinity Black Metal</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">50 Units</td>
+<td class="px-6 py-5 font-semibold text-on-surface">$5,000.00</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5"></span>
+                                        Completed
+                                    </span>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">Oct 26, 2023</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Order Row 4 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5 font-mono text-sm text-primary">#GLR-88222</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-gradient-to-br from-primary/20 to-tertiary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">credit_card</span>
+</div>
+<span class="font-medium text-on-surface">Glacier Platinum Elite</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">100 Units</td>
+<td class="px-6 py-5 font-semibold text-on-surface">$4,980.00</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-red-400 mr-1.5"></span>
+                                        Refunded
+                                    </span>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">Oct 26, 2023</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Order Row 5 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5 font-mono text-sm text-primary">#GLR-88223</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-gradient-to-br from-primary/20 to-tertiary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">credit_card</span>
+</div>
+<span class="font-medium text-on-surface">Custom Neon Series</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">400 Units</td>
+<td class="px-6 py-5 font-semibold text-on-surface">$6,800.00</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5"></span>
+                                        Completed
+                                    </span>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">Oct 27, 2023</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Order Row 6 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-5 font-mono text-sm text-primary">#GLR-88224</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-gradient-to-br from-primary/20 to-tertiary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">credit_card</span>
+</div>
+<span class="font-medium text-on-surface">Standard Corporate Blue</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">1,200 Units</td>
+<td class="px-6 py-5 font-semibold text-on-surface">$9,840.00</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1.5"></span>
+                                        Pending
+                                    </span>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">Oct 28, 2023</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Section -->
+<div class="px-6 py-4 bg-surface-variant/20 border-t border-primary/5 flex items-center justify-between">
+<span class="text-sm text-on-surface-variant">Showing <span class="text-on-surface font-medium">1-6</span> of 84 orders</span>
+<div class="flex items-center gap-1">
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary text-sm font-medium">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-variant text-on-surface text-sm transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-variant text-on-surface text-sm transition-colors">3</button>
+<span class="px-1 text-on-surface-variant">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-variant text-on-surface text-sm transition-colors">14</button>
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contextual Stats Footer (Secondary Focus) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+<div class="glass-panel p-4 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+<span class="material-symbols-outlined text-emerald-400">check_circle</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant uppercase tracking-wider">Completed Today</p>
+<p class="text-xl font-semibold text-on-surface">12 Orders</p>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
+<span class="material-symbols-outlined text-amber-400">pending_actions</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant uppercase tracking-wider">Awaiting Shipment</p>
+<p class="text-xl font-semibold text-on-surface">45 Orders</p>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant uppercase tracking-wider">Total Volume (Mo)</p>
+<p class="text-xl font-semibold text-on-surface">$142,800.00</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Background Decoration -->
+<div class="fixed top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px] -z-10"></div>
+<div class="fixed bottom-[-10%] left-[-10%] w-[30%] h-[30%] bg-tertiary/5 rounded-full blur-[100px] -z-10"></div>
+</body></html>

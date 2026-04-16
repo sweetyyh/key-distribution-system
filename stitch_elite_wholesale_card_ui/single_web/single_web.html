@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Netflix Premium UHD - Glacier Card</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#1a2438",
+                    "secondary-container": "#1a3a4e",
+                    "primary": "#7dd3fc",
+                    "inverse-surface": "#e0e8f0",
+                    "primary-fixed-dim": "#7dd3fc",
+                    "tertiary-fixed-dim": "#c8a0f0",
+                    "primary-fixed": "#c8eaff",
+                    "on-error": "#1a0000",
+                    "on-primary": "#001f2e",
+                    "on-background": "#e0e8f0",
+                    "error-container": "#3d1414",
+                    "tertiary-fixed": "#e8d0ff",
+                    "on-surface-variant": "#a0b4c4",
+                    "on-secondary-fixed-variant": "#2a4a5e",
+                    "surface-container-high": "#1a2438",
+                    "on-secondary-container": "#c0d8e8",
+                    "outline": "#4a6070",
+                    "surface-container-low": "#111828",
+                    "on-secondary-fixed": "#0d1f2b",
+                    "inverse-on-surface": "#0a0e1a",
+                    "tertiary-container": "#3d2060",
+                    "on-tertiary-fixed-variant": "#4d2a73",
+                    "secondary-fixed": "#c0d8e8",
+                    "secondary-fixed-dim": "#88b4cc",
+                    "surface-container-lowest": "#0a0e1a",
+                    "surface-tint": "#7dd3fc",
+                    "surface": "#0f1524",
+                    "on-primary-fixed": "#001f2e",
+                    "on-surface": "#e0e8f0",
+                    "on-error-container": "#ffb3b3",
+                    "background": "#0a0e1a",
+                    "secondary": "#88b4cc",
+                    "on-secondary": "#001f2e",
+                    "primary-container": "#0e4d6e",
+                    "on-tertiary-fixed": "#1a002e",
+                    "on-tertiary-container": "#e8d0ff",
+                    "inverse-primary": "#0a4c6e",
+                    "error": "#ff6b6b",
+                    "on-tertiary": "#1a002e",
+                    "surface-bright": "#1a2438",
+                    "tertiary": "#c8a0f0",
+                    "surface-dim": "#0f1524",
+                    "surface-container-highest": "#202c42",
+                    "surface-container": "#141c2e",
+                    "outline-variant": "#2a3a48",
+                    "on-primary-fixed-variant": "#004d73",
+                    "on-primary-container": "#c8eaff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.5rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(15, 21, 36, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(125, 211, 252, 0.1);
+        }
+        .glass-panel-elevated {
+            background: rgba(15, 21, 36, 0.75);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(125, 211, 252, 0.15);
+        }
+        .frozen-glow {
+            box-shadow: 0 0 30px rgba(125, 211, 252, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950/60 backdrop-blur-xl border-b border-sky-300/10 shadow-[0_0_30px_rgba(125,211,252,0.05)]">
+<div class="flex justify-between items-center h-16 px-8 max-w-full">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-semibold text-sky-300 tracking-wider font-inter">Glacier Card</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sky-300 border-b-2 border-sky-300 pb-1 font-inter tracking-tight" href="#">Marketplace</a>
+<a class="text-slate-400 hover:text-sky-200 hover:bg-white/5 transition-colors font-inter tracking-tight" href="#">Bundles</a>
+<a class="text-slate-400 hover:text-sky-200 hover:bg-white/5 transition-colors font-inter tracking-tight" href="#">My Assets</a>
+<a class="text-slate-400 hover:text-sky-200 hover:bg-white/5 transition-colors font-inter tracking-tight" href="#">Support</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-sky-300 hover:text-sky-200 transition-colors p-2">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="text-sky-300 hover:text-sky-200 transition-colors p-2">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-sky-300/20">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man in a dark environment with soft blue rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkn1WWUVyP8dsWtS8q0INLfSqKu-TnWSB1Ktsw0aByp16VMm-czI6aU15jnxpV-keDGsGm9tv1xedCYqLZmchOCJKksx9drZmIubH2cgmsfeAbW-jWHAw-z1B54IMp3qBhuIcrv14-JhbNSklMvzBbv2wBgxRnlnRsPI5fAWnbwFEhtQv9zIkeQ93gUVc96BzaPJZpx6HeZqSNr3J5yhykV6yzDqL_v2NqNFGuFh23CL4PjBPrkji3eAuWp7gKnCYUQk873PP7LBI"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Product Details -->
+<div class="lg:col-span-7 space-y-8">
+<section class="glass-panel rounded-xl overflow-hidden frozen-glow border border-white/5">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-primary opacity-20 blur-2xl group-hover:opacity-30 transition duration-1000"></div>
+<div class="relative">
+<img alt="Netflix Gift Card" class="w-full aspect-[16/9] object-cover" data-alt="Premium Netflix gift card with a sleek black and red metallic finish, glowing edges, positioned on a dark reflective surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVt9moZvf5tnUZXIdCQj9u1o-ezyqooWUUAtPhJhL3-56GcI-ObFvE2w49qsnYxnieemShPbkihDnnbwGEzIQW8VShxqJ95TmkXcpxEWIbnVVSUu0eEFoIPEvpZukOSiZcjnoOtsqLCN1CgmPrYmJdPBTqagxM88fKlBblOS_HFP3hf1EMWPvcOcJxYz2G6ZL43zw8c4GJKqnvId-vqy7tZHYXwsXyNGukDDTr1pw3vSilyLE6Q9tQDGuVXIt7skU19o8RCxcOjgs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6">
+<span class="text-white font-bold tracking-widest text-lg">PREMIUM UHD</span>
+</div>
+</div>
+</div>
+<div class="p-8 space-y-6">
+<div class="space-y-4">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-widest uppercase">
+                                Auto-Refill Status: Active
+                            </div>
+<h1 class="text-4xl font-bold text-on-surface tracking-tight leading-tight">
+                                Netflix Premium <span class="text-primary">UHD Subscription</span>
+</h1>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+                                Unlock the ultimate cinematic experience. High-performance access to Netflix Premium UHD, featuring 4K streaming and 4 simultaneous screens.
+                            </p>
+</div>
+<!-- Product Features Grid -->
+<div class="grid grid-cols-3 gap-4">
+<div class="flex flex-col items-center p-4 rounded-lg bg-white/5 border border-white/5 text-center">
+<span class="material-symbols-outlined text-primary mb-2" data-icon="bolt">bolt</span>
+<span class="text-xs font-medium text-on-surface-variant uppercase tracking-wider">Instant Delivery</span>
+</div>
+<div class="flex flex-col items-center p-4 rounded-lg bg-white/5 border border-white/5 text-center">
+<span class="material-symbols-outlined text-primary mb-2" data-icon="public">public</span>
+<span class="text-xs font-medium text-on-surface-variant uppercase tracking-wider">Global Region</span>
+</div>
+<div class="flex flex-col items-center p-4 rounded-lg bg-white/5 border border-white/5 text-center">
+<span class="material-symbols-outlined text-primary mb-2" data-icon="high_definition">hd</span>
+<span class="text-xs font-medium text-on-surface-variant uppercase tracking-wider">4K UHD Quality</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Transaction Area -->
+<div class="lg:col-span-5">
+<div class="glass-panel-elevated rounded-xl p-8 space-y-8 frozen-glow sticky top-24 border border-primary/20">
+<!-- 1. Quantity Selector -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Quantity</h3>
+<div class="flex items-center gap-4 bg-slate-900 rounded-lg p-1 border border-white/10">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors text-xl">-</button>
+<span class="text-on-surface font-bold w-10 text-center text-lg">1</span>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors text-xl">+</button>
+</div>
+</div>
+</div>
+<!-- 2. Payment Method -->
+<div class="space-y-4">
+<h3 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Payment Method</h3>
+<div class="grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-primary bg-primary/10 transition-all">
+<span class="material-symbols-outlined text-primary mb-1" data-icon="currency_bitcoin">currency_bitcoin</span>
+<span class="text-[10px] font-bold text-on-surface uppercase">USDT</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-lg border border-white/10 hover:border-primary/40 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mb-1" data-icon="credit_card">credit_card</span>
+<span class="text-[10px] font-bold text-on-surface uppercase">Card</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-lg border border-white/10 hover:border-primary/40 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mb-1" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="text-[10px] font-bold text-on-surface uppercase">Alipay</span>
+</button>
+</div>
+</div>
+<!-- 3. Order Summary -->
+<div class="pt-6 border-t border-white/10 space-y-4">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant font-medium">Subtotal</span>
+<span class="text-on-surface">¥110.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant font-medium">Order Discount</span>
+<span class="text-primary">-¥0.00</span>
+</div>
+<div class="flex justify-between items-baseline pt-2">
+<span class="text-lg font-bold text-on-surface">Total</span>
+<span class="text-3xl font-bold text-primary">¥110.00</span>
+</div>
+</div>
+<!-- 4. Buy Now Button -->
+<div class="space-y-4">
+<button class="w-full py-5 bg-primary text-on-primary font-bold rounded-xl shadow-[0_0_30px_rgba(125,211,252,0.3)] hover:brightness-110 active:scale-[0.98] transition-all uppercase tracking-[0.2em] text-sm">
+                            Buy Now
+                        </button>
+<div class="flex items-center justify-center gap-2 text-[10px] text-on-surface-variant uppercase tracking-widest">
+<span class="material-symbols-outlined text-xs" data-icon="lock">lock</span>
+                            Secure Encrypted Transaction
+                        </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-sky-300/10 bg-slate-950 mt-12">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 gap-6">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="text-sky-300 font-bold text-xl">Glacier Card</span>
+<span class="text-slate-500 font-inter text-sm">© 2024 Glacier Card Wholesale. All rights reserved.</span>
+</div>
+<div class="flex gap-8">
+<a class="text-slate-500 hover:text-sky-400 transition-colors font-inter text-sm" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-sky-400 transition-colors font-inter text-sm" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-sky-400 transition-colors font-inter text-sm" href="#">API Docs</a>
+<a class="text-slate-500 hover:text-sky-400 transition-colors font-inter text-sm" href="#">Refund Policy</a>
+</div>
+</div>
+</footer>
+</body></html>

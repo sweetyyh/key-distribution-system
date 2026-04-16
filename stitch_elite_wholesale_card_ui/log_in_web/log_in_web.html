@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | Glacier Wholesale</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0e1a;
+        }
+        .glass-card {
+            background: rgba(15, 21, 36, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(125, 211, 252, 0.1);
+        }
+        .glass-input {
+            background: rgba(10, 14, 26, 0.4);
+            border: 1px solid rgba(125, 211, 252, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-input:focus {
+            border-color: rgba(125, 211, 252, 0.5);
+            box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
+            outline: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#88b4cc",
+                        "outline": "#4a6070",
+                        "on-error-container": "#ffb3b3",
+                        "surface-container-low": "#111828",
+                        "on-tertiary-fixed": "#1a002e",
+                        "surface-container-highest": "#202c42",
+                        "on-primary-fixed-variant": "#004d73",
+                        "error": "#ff6b6b",
+                        "on-primary-fixed": "#001f2e",
+                        "on-primary": "#001f2e",
+                        "on-background": "#e0e8f0",
+                        "tertiary-fixed-dim": "#c8a0f0",
+                        "surface-dim": "#0f1524",
+                        "on-tertiary-container": "#e8d0ff",
+                        "on-secondary": "#001f2e",
+                        "surface": "#0f1524",
+                        "on-tertiary": "#1a002e",
+                        "inverse-primary": "#0a4c6e",
+                        "background": "#0a0e1a",
+                        "on-tertiary-fixed-variant": "#4d2a73",
+                        "on-surface": "#e0e8f0",
+                        "on-secondary-fixed-variant": "#2a4a5e",
+                        "on-primary-container": "#c8eaff",
+                        "surface-bright": "#1a2438",
+                        "tertiary-fixed": "#e8d0ff",
+                        "primary": "#7dd3fc",
+                        "on-error": "#1a0000",
+                        "surface-container-high": "#1a2438",
+                        "primary-fixed": "#c8eaff",
+                        "tertiary-container": "#3d2060",
+                        "surface-tint": "#7dd3fc",
+                        "primary-fixed-dim": "#7dd3fc",
+                        "surface-container": "#141c2e",
+                        "secondary": "#88b4cc",
+                        "on-secondary-container": "#c0d8e8",
+                        "surface-variant": "#1a2438",
+                        "secondary-container": "#1a3a4e",
+                        "inverse-on-surface": "#0a0e1a",
+                        "error-container": "#3d1414",
+                        "tertiary": "#c8a0f0",
+                        "on-surface-variant": "#a0b4c4",
+                        "on-secondary-fixed": "#0d1f2b",
+                        "surface-container-lowest": "#0a0e1a",
+                        "inverse-surface": "#e0e8f0",
+                        "outline-variant": "#2a3a48",
+                        "primary-container": "#0e4d6e",
+                        "secondary-fixed": "#c0d8e8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Background Elements -->
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-tertiary/5 blur-[100px] rounded-full"></div>
+<div class="absolute inset-0 z-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, rgba(125, 211, 252, 0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
+<!-- Main Container -->
+<main class="relative z-10 w-full max-w-md px-6 py-12">
+<!-- Branding Anchor -->
+<div class="text-center mb-10">
+<h1 class="text-3xl font-semibold text-primary tracking-wider font-headline mb-2">Glacier Wholesale</h1>
+<p class="text-on-surface-variant text-sm font-body">Premium Inventory Access</p>
+</div>
+<!-- Login Card -->
+<div class="glass-card p-8 rounded-xl shadow-[0_0_40px_rgba(125,211,252,0.05)]">
+<div class="mb-8">
+<h2 class="text-xl font-medium text-on-surface mb-1">Welcome Back</h2>
+<p class="text-on-surface-variant text-sm">Please enter your credentials to continue.</p>
+</div>
+<form class="space-y-6">
+<!-- Email Input -->
+<div class="space-y-2">
+<label class="block text-xs font-medium text-on-surface-variant uppercase tracking-wider ml-1" for="email">Email Address</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">mail</span>
+<input class="glass-input w-full pl-10 pr-4 py-3 rounded-lg text-on-surface placeholder:text-outline focus:ring-0" id="email" placeholder="name@glacier.com" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-2">
+<label class="block text-xs font-medium text-on-surface-variant uppercase tracking-wider ml-1" for="password">Password</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">lock</span>
+<input class="glass-input w-full pl-10 pr-12 py-3 rounded-lg text-on-surface placeholder:text-outline focus:ring-0" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember & Forgot -->
+<div class="flex items-center justify-between text-sm">
+<label class="flex items-center cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer hidden" type="checkbox"/>
+<div class="w-5 h-5 rounded border border-outline bg-surface-container group-hover:border-primary/50 transition-all peer-checked:bg-primary-container peer-checked:border-primary"></div>
+<span class="material-symbols-outlined absolute inset-0 text-xs text-on-primary-container opacity-0 peer-checked:opacity-100 flex items-center justify-center">check</span>
+</div>
+<span class="ml-2 text-on-surface-variant group-hover:text-on-surface transition-colors">Remember me</span>
+</label>
+<a class="text-primary hover:text-primary-fixed-dim transition-colors font-medium" href="#">Forgot password?</a>
+</div>
+<!-- Login Button -->
+<button class="w-full bg-primary-container/40 border border-primary/20 hover:bg-primary-container/60 hover:border-primary/40 text-on-primary-container font-semibold py-3.5 rounded-lg transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(125,211,252,0.1)]" type="submit">
+                    Login to Dashboard
+                </button>
+</form>
+<!-- Divider -->
+<div class="relative my-8">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant"></div>
+</div>
+<div class="relative flex justify-center text-xs uppercase tracking-widest">
+<span class="bg-[#0f1524] px-4 text-on-surface-variant">Or continue with</span>
+</div>
+</div>
+<!-- Social Logins -->
+<div class="grid grid-cols-2 gap-4">
+<button class="glass-input flex items-center justify-center gap-2 py-3 rounded-lg hover:bg-surface-container-highest transition-colors group">
+<img alt="Google" class="w-4 h-4 grayscale group-hover:grayscale-0 transition-all" data-alt="minimalist google logo icon on a white background with clean circular shape" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkSOZTtPNmtGU0SmTTdFJ8XtW0LI8ossIz0KWRv-x1oY_D0VBvxETZSksY5tb2m_zM21ByIVLzQyst8Nxaxe7bVW7pwP_HVxJ2IOAJ0oxrTuqbsSH5eO7vvyP3x_qT-dUvZZVs4eJt9lS_S9p7XOD_oLbQPXH3gPx249kpE6oWb3_ROXNoY19HLh-WSWPY4GEiIhOzzYH_EYmYwi8e8Vlysx-v2Nf-2SXuqVCEpRp3DijRp3TOAxxLSg0WPPe4X6zusj-jYNNvUqo"/>
+<span class="text-sm font-medium text-on-surface">Google</span>
+</button>
+<button class="glass-input flex items-center justify-center gap-2 py-3 rounded-lg hover:bg-surface-container-highest transition-colors group">
+<span class="material-symbols-outlined text-lg text-on-surface-variant group-hover:text-primary">terminal</span>
+<span class="text-sm font-medium text-on-surface">SSO</span>
+</button>
+</div>
+<!-- Signup Prompt -->
+<div class="mt-8 text-center text-sm">
+<span class="text-on-surface-variant">New partner? </span>
+<a class="text-primary hover:underline font-medium" href="#">Apply for account</a>
+</div>
+</div>
+<!-- Footer Links (Semantic from JSON guidelines) -->
+<div class="mt-12 flex justify-center gap-6 text-xs text-slate-500 font-inter">
+<a class="hover:text-sky-200 transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-sky-200 transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-sky-200 transition-colors" href="#">Wholesale FAQ</a>
+</div>
+<p class="mt-4 text-center text-[10px] text-slate-600 uppercase tracking-widest">
+            © 2024 Glacier Card Platform. All rights reserved.
+        </p>
+</main>
+<!-- Decorative Bottom Gradient -->
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+</body></html>
