@@ -1,99 +1,99 @@
 CREATE TABLE IF NOT EXISTS users (
-    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(64) NOT NULL UNIQUE,
-    email VARCHAR(128) NOT NULL UNIQUE,
-    password_hash VARCHAR(256) NOT NULL,
-    role ENUM('admin', 'buyer') NOT NULL DEFAULT 'buyer',
-    status TINYINT NOT NULL DEFAULT 1,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'buyer' CHECK(role IN ('admin', 'buyer')),
+    status INTEGER NOT NULL DEFAULT 1,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS categories (
-    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(64) NOT NULL,
-    parent_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
-    sort_order INT NOT NULL DEFAULT 0
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    parent_id INTEGER NOT NULL DEFAULT 0,
+    sort_order INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS products (
-    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    category_id BIGINT UNSIGNED NOT NULL,
-    name VARCHAR(128) NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
     description TEXT,
-    price DECIMAL(18,2) NOT NULL,
-    wholesale_rules JSON NULL,
-    stock INT NOT NULL DEFAULT 0,
-    status TINYINT NOT NULL DEFAULT 1,
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_products_category_id (category_id)
+    price NUMERIC NOT NULL,
+    wholesale_rules TEXT,
+    stock INTEGER NOT NULL DEFAULT 0,
+    status INTEGER NOT NULL DEFAULT 1,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+CREATE INDEX IF NOT EXISTS idx_products_category_id ON products(category_id);
 
 CREATE TABLE IF NOT EXISTS orders (
-    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    order_no VARCHAR(32) NOT NULL UNIQUE,
-    user_id BIGINT UNSIGNED NOT NULL,
-    product_id BIGINT UNSIGNED NOT NULL,
-    quantity INT NOT NULL,
-    unit_price DECIMAL(18,2) NOT NULL,
-    total_amount DECIMAL(18,2) NOT NULL,
-    status TINYINT NOT NULL DEFAULT 0,
-    pay_channel VARCHAR(32) NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_no TEXT NOT NULL UNIQUE,
+    user_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
+    unit_price NUMERIC NOT NULL,
+    total_amount NUMERIC NOT NULL,
+    status INTEGER NOT NULL DEFAULT 0,
+    pay_channel TEXT NOT NULL,
     expires_at DATETIME NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    paid_at DATETIME NULL,
-    INDEX idx_orders_user_id (user_id),
-    INDEX idx_orders_product_id (product_id),
-    INDEX idx_orders_status (status),
-    INDEX idx_orders_expires_at (expires_at)
+    paid_at DATETIME NULL
 );
+CREATE INDEX IF NOT EXISTS idx_orders_user_id ON orders(user_id);
+CREATE INDEX IF NOT EXISTS idx_orders_product_id ON orders(product_id);
+CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
+CREATE INDEX IF NOT EXISTS idx_orders_expires_at ON orders(expires_at);
 
 CREATE TABLE IF NOT EXISTS card_keys (
-    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    product_id BIGINT UNSIGNED NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER NOT NULL,
     content TEXT NOT NULL,
-    status TINYINT NOT NULL DEFAULT 0,
-    order_id BIGINT UNSIGNED NULL,
+    status INTEGER NOT NULL DEFAULT 0,
+    order_id INTEGER NULL,
     locked_at DATETIME NULL,
-    sold_at DATETIME NULL,
-    INDEX idx_card_keys_product_status_id (product_id, status, id),
-    INDEX idx_card_keys_order_id (order_id)
+    sold_at DATETIME NULL
 );
+CREATE INDEX IF NOT EXISTS idx_card_keys_product_status_id ON card_keys(product_id, status, id);
+CREATE INDEX IF NOT EXISTS idx_card_keys_order_id ON card_keys(order_id);
 
 CREATE TABLE IF NOT EXISTS payments (
-    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    order_id BIGINT UNSIGNED NOT NULL,
-    order_no VARCHAR(32) NOT NULL,
-    out_trade_no VARCHAR(64) NOT NULL UNIQUE,
-    trade_no VARCHAR(64) NULL,
-    channel VARCHAR(32) NOT NULL,
-    amount DECIMAL(18,2) NOT NULL,
-    status TINYINT NOT NULL DEFAULT 0,
-    raw_callback JSON NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL,
+    order_no TEXT NOT NULL,
+    out_trade_no TEXT NOT NULL UNIQUE,
+    trade_no TEXT NULL,
+    channel TEXT NOT NULL,
+    amount NUMERIC NOT NULL,
+    status INTEGER NOT NULL DEFAULT 0,
+    raw_callback TEXT NULL,
     paid_at DATETIME NULL,
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_payments_order_id (order_id),
-    INDEX idx_payments_order_no (order_no),
-    UNIQUE INDEX uq_payments_channel_trade_no (channel, trade_no)
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+CREATE INDEX IF NOT EXISTS idx_payments_order_id ON payments(order_id);
+CREATE INDEX IF NOT EXISTS idx_payments_order_no ON payments(order_no);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_payments_channel_trade_no ON payments(channel, trade_no);
 
 CREATE TABLE IF NOT EXISTS order_items (
-    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    order_id BIGINT UNSIGNED NOT NULL,
-    card_key_id BIGINT UNSIGNED NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL,
+    card_key_id INTEGER NOT NULL,
     content_snapshot TEXT NOT NULL,
-    delivered_at DATETIME NOT NULL,
-    INDEX idx_order_items_order_id (order_id),
-    INDEX idx_order_items_card_key_id (card_key_id)
+    delivered_at DATETIME NOT NULL
 );
+CREATE INDEX IF NOT EXISTS idx_order_items_order_id ON order_items(order_id);
+CREATE INDEX IF NOT EXISTS idx_order_items_card_key_id ON order_items(card_key_id);
 
 CREATE TABLE IF NOT EXISTS product_snapshots (
-    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    order_id BIGINT UNSIGNED NOT NULL,
-    product_id BIGINT UNSIGNED NOT NULL,
-    name VARCHAR(128) NOT NULL,
-    price DECIMAL(18,2) NOT NULL,
-    wholesale_rules JSON NULL,
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_product_snapshots_order_id (order_id),
-    INDEX idx_product_snapshots_product_id (product_id)
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    price NUMERIC NOT NULL,
+    wholesale_rules TEXT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+CREATE INDEX IF NOT EXISTS idx_product_snapshots_order_id ON product_snapshots(order_id);
+CREATE INDEX IF NOT EXISTS idx_product_snapshots_product_id ON product_snapshots(product_id);

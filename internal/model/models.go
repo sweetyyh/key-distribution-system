@@ -14,7 +14,7 @@ type User struct {
 	Username     string    `gorm:"size:64;not null;uniqueIndex"`
 	Email        string    `gorm:"size:128;not null;uniqueIndex"`
 	PasswordHash string    `gorm:"size:256;not null"`
-	Role         UserRole  `gorm:"type:enum('admin','buyer');not null;default:'buyer'"`
+	Role         UserRole  `gorm:"type:text;not null;default:'buyer'"`
 	Status       int8      `gorm:"not null;default:1"`
 	CreatedAt    time.Time `gorm:"autoCreateTime"`
 }
@@ -31,8 +31,8 @@ type Product struct {
 	CategoryID     uint64    `gorm:"not null;index"`
 	Name           string    `gorm:"size:128;not null"`
 	Description    string    `gorm:"type:text"`
-	Price          string    `gorm:"type:decimal(18,2);not null"`
-	WholesaleRules string    `gorm:"type:json"`
+	Price          string    `gorm:"type:numeric;not null"`
+	WholesaleRules string    `gorm:"type:text"`
 	Stock          int       `gorm:"not null;default:0"`
 	Status         int8      `gorm:"not null;default:1"`
 	CreatedAt      time.Time `gorm:"autoCreateTime"`
@@ -54,8 +54,8 @@ type Order struct {
 	UserID      uint64    `gorm:"not null;index"`
 	ProductID   uint64    `gorm:"not null;index"`
 	Quantity    int       `gorm:"not null"`
-	UnitPrice   string    `gorm:"type:decimal(18,2);not null"`
-	TotalAmount string    `gorm:"type:decimal(18,2);not null"`
+	UnitPrice   string    `gorm:"type:numeric;not null"`
+	TotalAmount string    `gorm:"type:numeric;not null"`
 	Status      int8      `gorm:"not null;default:0;index"`
 	PayChannel  string    `gorm:"size:32;not null"`
 	ExpiresAt   time.Time `gorm:"not null;index"`
@@ -70,9 +70,9 @@ type Payment struct {
 	OutTradeNo  string `gorm:"size:64;not null;uniqueIndex"`
 	TradeNo     string `gorm:"size:64;index:idx_channel_trade,priority:2"`
 	Channel     string `gorm:"size:32;not null;index:idx_channel_trade,priority:1"`
-	Amount      string `gorm:"type:decimal(18,2);not null"`
+	Amount      string `gorm:"type:numeric;not null"`
 	Status      int8   `gorm:"not null;default:0;index"`
-	RawCallback string `gorm:"type:json"`
+	RawCallback string `gorm:"type:text"`
 	PaidAt      *time.Time
 	CreatedAt   time.Time `gorm:"autoCreateTime"`
 }
@@ -90,7 +90,7 @@ type ProductSnapshot struct {
 	OrderID        uint64    `gorm:"not null;index"`
 	ProductID      uint64    `gorm:"not null;index"`
 	Name           string    `gorm:"size:128;not null"`
-	Price          string    `gorm:"type:decimal(18,2);not null"`
-	WholesaleRules string    `gorm:"type:json"`
+	Price          string    `gorm:"type:numeric;not null"`
+	WholesaleRules string    `gorm:"type:text"`
 	CreatedAt      time.Time `gorm:"autoCreateTime"`
 }

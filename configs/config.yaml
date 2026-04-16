@@ -6,19 +6,8 @@ server:
   host: 0.0.0.0
   port: 8080
 
-mysql:
-  host: 127.0.0.1
-  port: 3306
-  user: root
-  password: change_me
-  database: key_distribution_system
-  max_idle_conns: 10
-  max_open_conns: 50
-
-redis:
-  addr: 127.0.0.1:6379
-  password: ""
-  db: 0
+sqlite:
+  path: data/kds.db
 
 jwt:
   buyer_secret: please_change_buyer_secret

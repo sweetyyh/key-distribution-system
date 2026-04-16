@@ -10,8 +10,7 @@ import (
 type Config struct {
 	App     AppConfig     `mapstructure:"app"`
 	Server  ServerConfig  `mapstructure:"server"`
-	MySQL   MySQLConfig   `mapstructure:"mysql"`
-	Redis   RedisConfig   `mapstructure:"redis"`
+	SQLite  SQLiteConfig  `mapstructure:"sqlite"`
 	JWT     JWTConfig     `mapstructure:"jwt"`
 	Payment PaymentConfig `mapstructure:"payment"`
 }
@@ -26,20 +25,8 @@ type ServerConfig struct {
 	Port int    `mapstructure:"port"`
 }
 
-type MySQLConfig struct {
-	Host         string `mapstructure:"host"`
-	Port         int    `mapstructure:"port"`
-	User         string `mapstructure:"user"`
-	Password     string `mapstructure:"password"`
-	Database     string `mapstructure:"database"`
-	MaxIdleConns int    `mapstructure:"max_idle_conns"`
-	MaxOpenConns int    `mapstructure:"max_open_conns"`
-}
-
-type RedisConfig struct {
-	Addr     string `mapstructure:"addr"`
-	Password string `mapstructure:"password"`
-	DB       int    `mapstructure:"db"`
+type SQLiteConfig struct {
+	Path string `mapstructure:"path"`
 }
 
 type JWTConfig struct {

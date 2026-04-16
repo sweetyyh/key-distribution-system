@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"key-distribution-system/internal/config"
+	"key-distribution-system/internal/db"
 	"key-distribution-system/internal/router"
 	"key-distribution-system/internal/store"
 )
@@ -21,7 +22,16 @@ func main() {
 		log.Fatalf("load config failed: %v", err)
 	}
 
-	store.Init()
+	sqlitePath := cfg.SQLite.Path
+	if sqlitePath == "" {
+		sqlitePath = "data/kds.db"
+	}
+
+	if err = db.Init(sqlitePath); err != nil {
+		log.Fatalf("init db failed: %v", err)
+	}
+
+	store.Init(db.DB)
 
 	r := router.New()
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Host, cfg.Server.Port)
