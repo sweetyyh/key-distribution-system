@@ -33,7 +33,7 @@ func main() {
 
 	store.Init(db.DB)
 
-	r := router.New()
+	r := router.New(cfg)
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Host, cfg.Server.Port)
 	if err = r.Run(addr); err != nil {
 		log.Fatalf("run server failed: %v", err)

@@ -4,20 +4,22 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"key-distribution-system/internal/config"
 	"key-distribution-system/internal/handler"
+	"key-distribution-system/internal/middleware"
 )
 
-func New() *gin.Engine {
+func New(cfg *config.Config) *gin.Engine {
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
 
-	// 托管前端静态文件
 	r.Static("/portal", "./stitch_virtual_card_wholesale_portal")
 	r.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusMovedPermanently, "/portal/_1/code.html")
 	})
 
-	// CORS 中间件（内联实现，无需额外依赖）
+	// CORS
 	r.Use(func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
@@ -33,24 +35,31 @@ func New() *gin.Engine {
 	health := handler.NewHealthHandler()
 	r.GET("/ping", health.Ping)
 
+	authH := handler.NewAuthHandler(cfg)
 	productH := handler.NewProductHandler()
 	orderH := handler.NewOrderHandler()
 	payH := handler.NewPayHandler()
+
+	buyerAuth := middleware.BuyerAuth(cfg.JWT.BuyerSecret)
+	adminAuth := middleware.AdminAuth(cfg.JWT.AdminSecret)
 
 	apiV1 := r.Group("/api/v1")
 	{
 		auth := apiV1.Group("/auth")
 		{
-			auth.POST("/register", handler.NotImplemented)
-			auth.POST("/login", handler.NotImplemented)
+			auth.POST("/register", authH.Register)
+			auth.POST("/login", authH.Login)
 		}
 
+		// 公开接口
 		apiV1.GET("/products", productH.List)
 		apiV1.GET("/products/:id", productH.Get)
-		apiV1.POST("/orders", orderH.CreateOrder)
-		apiV1.GET("/orders", handler.NotImplemented)
-		apiV1.GET("/orders/:order_no", handler.NotImplemented)
-		apiV1.GET("/orders/:order_no/cards", orderH.GetOrderCards)
+
+		// 需要登录
+		apiV1.POST("/orders", buyerAuth, orderH.CreateOrder)
+		apiV1.GET("/orders", buyerAuth, orderH.ListOrders)
+		apiV1.GET("/orders/:order_no", buyerAuth, orderH.GetOrderDetail)
+		apiV1.GET("/orders/:order_no/cards", buyerAuth, orderH.GetOrderCards)
 
 		pay := apiV1.Group("/pay")
 		{
@@ -59,7 +68,7 @@ func New() *gin.Engine {
 		}
 	}
 
-	admin := r.Group("/api/admin")
+	admin := r.Group("/api/admin", adminAuth)
 	{
 		admin.POST("/products", handler.NotImplemented)
 		admin.PUT("/products/:id", handler.NotImplemented)

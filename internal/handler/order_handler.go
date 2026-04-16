@@ -2,30 +2,30 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
+
+	"key-distribution-system/internal/middleware"
 	"key-distribution-system/internal/pkg/response"
 	"key-distribution-system/internal/store"
 )
 
-// OrderHandler 订单相关处理器
 type OrderHandler struct{}
 
-// NewOrderHandler 创建订单处理器
 func NewOrderHandler() *OrderHandler {
 	return &OrderHandler{}
 }
 
-// CreateOrderReq 创建订单请求体
 type CreateOrderReq struct {
-	ProductID  uint64 `json:"product_id" binding:"required"`
-	Quantity   int    `json:"quantity" binding:"required,min=1"`
+	ProductID  uint64 `json:"product_id"  binding:"required"`
+	Quantity   int    `json:"quantity"    binding:"required,min=1"`
 	PayChannel string `json:"pay_channel" binding:"required"`
-	Email      string `json:"email" binding:"required,email"`
+	Email      string `json:"email"       binding:"required,email"`
 	Name       string `json:"name"`
 }
 
-// CreateOrder 创建订单 POST /api/v1/orders
+// CreateOrder POST /api/v1/orders
 func (h *OrderHandler) CreateOrder(c *gin.Context) {
 	var req CreateOrderReq
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -33,7 +33,13 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 		return
 	}
 
+	var userID uint64
+	if id, exists := c.Get(middleware.CtxUserID); exists {
+		userID, _ = id.(uint64)
+	}
+
 	out, err := store.Global.CreateOrder(store.CreateOrderInput{
+		UserID:     userID,
 		ProductID:  req.ProductID,
 		Quantity:   req.Quantity,
 		PayChannel: req.PayChannel,
@@ -45,7 +51,6 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 		case "product not found":
 			response.Error(c, http.StatusNotFound, 40402, "product not found")
 		default:
-			// insufficient stock 或其他
 			response.Error(c, http.StatusBadRequest, 40003, err.Error())
 		}
 		return
@@ -54,7 +59,42 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 	response.OK(c, out)
 }
 
-// GetOrderCards 获取订单卡密 GET /api/v1/orders/:order_no/cards
+// GetOrderDetail GET /api/v1/orders/:order_no
+func (h *OrderHandler) GetOrderDetail(c *gin.Context) {
+	orderNo := c.Param("order_no")
+	userID, _ := c.Get(middleware.CtxUserID)
+	uid, _ := userID.(uint64)
+
+	dto, err := store.Global.GetOrderDetail(orderNo, uid)
+	if err != nil {
+		response.Error(c, http.StatusNotFound, 40403, "order not found")
+		return
+	}
+	response.OK(c, dto)
+}
+
+// ListOrders GET /api/v1/orders
+func (h *OrderHandler) ListOrders(c *gin.Context) {
+	userID, _ := c.Get(middleware.CtxUserID)
+	uid, _ := userID.(uint64)
+
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	pageSize, _ := strconv.Atoi(c.DefaultQuery("page_size", "20"))
+
+	items, total, err := store.Global.ListOrders(uid, page, pageSize)
+	if err != nil {
+		response.Error(c, http.StatusInternalServerError, 50002, "query failed")
+		return
+	}
+	response.OK(c, gin.H{
+		"list":      items,
+		"total":     total,
+		"page":      page,
+		"page_size": pageSize,
+	})
+}
+
+// GetOrderCards GET /api/v1/orders/:order_no/cards
 func (h *OrderHandler) GetOrderCards(c *gin.Context) {
 	orderNo := c.Param("order_no")
 	if orderNo == "" {

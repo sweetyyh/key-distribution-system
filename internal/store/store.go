@@ -49,6 +49,7 @@ type OrderCardsDTO struct {
 
 // CreateOrderInput 创建订单输入
 type CreateOrderInput struct {
+	UserID     uint64
 	ProductID  uint64
 	Quantity   int
 	PayChannel string
@@ -289,9 +290,13 @@ func (s *DBStore) CreateOrder(input CreateOrderInput) (*CreateOrderOutput, error
 		orderNo := fmt.Sprintf("SL%08d%04d", ts, rng.Intn(10000))
 		expiresAt := now.Add(30 * time.Minute)
 
+		userID := input.UserID
+		if userID == 0 {
+			userID = 1 // 匿名用户兜底
+		}
 		order := model.Order{
 			OrderNo:     orderNo,
-			UserID:      1,
+			UserID:      userID,
 			ProductID:   input.ProductID,
 			Quantity:    input.Quantity,
 			UnitPrice:   fmt.Sprintf("%.2f", unitPrice),
@@ -320,6 +325,16 @@ func (s *DBStore) CreateOrder(input CreateOrderInput) (*CreateOrderOutput, error
 			}).Error; err != nil {
 			return err
 		}
+
+		// 写入商品快照（防止商品信息变更影响历史订单）
+		snapshot := model.ProductSnapshot{
+			OrderID:        order.ID,
+			ProductID:      p.ID,
+			Name:           p.Name,
+			Price:          fmt.Sprintf("%.2f", unitPrice),
+			WholesaleRules: p.WholesaleRules,
+		}
+		tx.Create(&snapshot)
 
 		out = &CreateOrderOutput{
 			OrderNo:     orderNo,
