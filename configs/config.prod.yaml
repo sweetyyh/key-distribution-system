@@ -1,0 +1,25 @@
+app:
+  name: key-distribution-system
+  env: prod
+
+server:
+  host: 0.0.0.0
+  port: 8080
+
+sqlite:
+  path: data/kds.db
+
+jwt:
+  buyer_secret: CHANGE_ME_STRONG_BUYER_SECRET
+  admin_secret: CHANGE_ME_STRONG_ADMIN_SECRET
+  expire_hours: 24
+
+payment:
+  channels:
+    - name: epay
+      enabled: true
+      pid: "2102"
+      key: "yaaRUUtiOAH49dUiJFp4Sy19uAaww01h"
+      api_url: https://mzf.jzmohe.com/submit.php
+      notify_url: https://YOUR_DOMAIN/api/v1/pay/callback/epay
+      return_url: https://YOUR_DOMAIN/portal/vue_app/index.html#/orders?order_no={order_no}
