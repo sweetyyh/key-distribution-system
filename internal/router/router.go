@@ -16,7 +16,7 @@ func New(cfg *config.Config) *gin.Engine {
 
 	r.Static("/portal", "./stitch_elite_wholesale_card_ui")
 	r.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "/portal/index_web/index_web.html")
+		c.Redirect(http.StatusMovedPermanently, "/portal/app/")
 	})
 
 	// CORS

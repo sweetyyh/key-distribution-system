@@ -12,6 +12,10 @@ func OK(c *gin.Context, data interface{}) {
 	c.JSON(200, Body{Code: 0, Message: "ok", Data: data})
 }
 
+func Created(c *gin.Context, data interface{}) {
+	c.JSON(201, Body{Code: 0, Message: "created", Data: data})
+}
+
 func Error(c *gin.Context, statusCode int, code int, msg string) {
 	c.JSON(statusCode, Body{Code: code, Message: msg})
 }

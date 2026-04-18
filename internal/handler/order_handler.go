@@ -56,7 +56,7 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 		return
 	}
 
-	response.OK(c, out)
+	response.Created(c, out)
 }
 
 // GetOrderDetail GET /api/v1/orders/:order_no
@@ -106,7 +106,7 @@ func (h *OrderHandler) GetOrderCards(c *gin.Context) {
 	if err != nil {
 		switch err.Error() {
 		case "order not paid yet":
-			response.Error(c, http.StatusBadRequest, 40005, "order not paid yet")
+			response.Error(c, http.StatusPaymentRequired, 40005, "order not paid yet")
 		default:
 			response.Error(c, http.StatusNotFound, 40403, err.Error())
 		}

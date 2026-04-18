@@ -48,7 +48,7 @@ func (h *AuthHandler) Register(c *gin.Context) {
 		return
 	}
 
-	response.OK(c, gin.H{
+	response.Created(c, gin.H{
 		"token":    token,
 		"user_id":  user.ID,
 		"username": user.Username,

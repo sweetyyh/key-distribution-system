@@ -1,10 +1,11 @@
 package handler
 
 import (
-	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+
+	"key-distribution-system/internal/pkg/response"
 )
 
 type HealthHandler struct{}
@@ -14,8 +15,7 @@ func NewHealthHandler() *HealthHandler {
 }
 
 func (h *HealthHandler) Ping(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"status": "ok",
-		"time":   time.Now().UTC().Format(time.RFC3339),
+	response.OK(c, gin.H{
+		"time": time.Now().UTC().Format(time.RFC3339),
 	})
 }
