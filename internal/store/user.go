@@ -38,10 +38,10 @@ func (s *DBStore) Register(input RegisterInput) (*model.User, error) {
 	return user, nil
 }
 
-// LoginByUsername 通过用户名和密码登录，返回用户
+// LoginByUsername 通过用户名或邮箱+密码登录，返回用户
 func (s *DBStore) LoginByUsername(username, password string) (*model.User, error) {
 	var user model.User
-	if err := s.db.Where("username = ? AND status = 1", username).First(&user).Error; err != nil {
+	if err := s.db.Where("(username = ? OR email = ?) AND status = 1", username, username).First(&user).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, fmt.Errorf("invalid credentials")
 		}
