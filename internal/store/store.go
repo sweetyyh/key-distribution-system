@@ -173,10 +173,11 @@ func seedData(db *gorm.DB) {
 		},
 	}
 
-	// 幂等：已有商品则跳过
+	// 幂等：已有商品则跳过（但仍需确保测试商品存在）
 	var count int64
 	db.Model(&model.Product{}).Count(&count)
 	if count > 0 {
+		seedTestProduct(db)
 		return
 	}
 
@@ -206,6 +207,33 @@ func seedData(db *gorm.DB) {
 		}
 		db.CreateInBatches(cards, 200)
 	}
+}
+
+// seedTestProduct 插入 id=99 的 0.01 测试商品（幂等）
+func seedTestProduct(db *gorm.DB) {
+	const testID uint64 = 99
+	var exist model.Product
+	if db.First(&exist, testID).Error == nil {
+		return
+	}
+	rules := []WholesaleRule{{Min: 1, Price: 0.01}}
+	rulesJSON, _ := json.Marshal(rules)
+	p := model.Product{
+		ID:             testID,
+		CategoryID:     1,
+		Name:           "Test Product ¥0.01",
+		Description:    "Payment integration test item. Do not purchase in production.",
+		Price:          "0.01",
+		WholesaleRules: string(rulesJSON),
+		Stock:          100,
+		Status:         1,
+	}
+	db.Clauses(clause.OnConflict{DoNothing: true}).Create(&p)
+	cards := make([]model.CardKey, 100)
+	for i := range cards {
+		cards[i] = model.CardKey{ProductID: testID, Content: generateCardContent(), Status: 0}
+	}
+	db.CreateInBatches(cards, 100)
 }
 
 // ListProducts 返回所有上架产品列表
