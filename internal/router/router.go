@@ -38,7 +38,7 @@ func New(cfg *config.Config) *gin.Engine {
 	authH := handler.NewAuthHandler(cfg)
 	productH := handler.NewProductHandler()
 	orderH := handler.NewOrderHandler()
-	payH := handler.NewPayHandler()
+	payH := handler.NewPayHandler(cfg)
 
 	buyerAuth := middleware.BuyerAuth(cfg.JWT.BuyerSecret)
 	adminAuth := middleware.AdminAuth(cfg.JWT.AdminSecret)
@@ -63,8 +63,9 @@ func New(cfg *config.Config) *gin.Engine {
 
 		pay := apiV1.Group("/pay")
 		{
-			pay.POST("/callback/:channel", payH.MockCallback)
-			pay.GET("/return/:channel", handler.NotImplemented)
+			pay.POST("/create/:channel", buyerAuth, payH.CreatePay)
+			pay.GET("/callback/:channel", payH.Callback)
+			pay.GET("/return/:channel", payH.Return)
 		}
 	}
 

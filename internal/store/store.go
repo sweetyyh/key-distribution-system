@@ -401,6 +401,15 @@ func (s *DBStore) FulfillOrder(orderNo string) error {
 	})
 }
 
+// GetOrderByNo 根据订单号返回原始订单（用于支付流程）
+func (s *DBStore) GetOrderByNo(orderNo string) (*model.Order, error) {
+	var order model.Order
+	if err := s.db.Where("order_no = ?", orderNo).First(&order).Error; err != nil {
+		return nil, fmt.Errorf("order not found: %s", orderNo)
+	}
+	return &order, nil
+}
+
 // GetOrderCards 获取已支付订单的卡密列表
 func (s *DBStore) GetOrderCards(orderNo string) (*OrderCardsDTO, error) {
 	var order model.Order

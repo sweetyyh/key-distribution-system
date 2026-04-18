@@ -120,21 +120,26 @@ async function selectOrder(orderNo) {
   await loadOrderDetail(orderNo);
 }
 
-async function simulatePayment() {
+async function startPayment() {
   if (!orderDetail.value) return;
   pendingPayment.value = true;
   detailError.value = "";
   try {
-    await apiRequest(`/api/v1/pay/callback/${encodeURIComponent(orderDetail.value.pay_channel)}`, {
-      method: "POST",
-      body: {
-        order_no: orderDetail.value.order_no,
+    const data = await apiRequest(
+      `/api/v1/pay/create/${encodeURIComponent(orderDetail.value.pay_channel)}`,
+      {
+        method: "POST",
+        auth: true,
+        body: {
+          order_no: orderDetail.value.order_no,
+          pay_type: "alipay",
+        },
       },
-    });
-    await loadOrders();
+    );
+    // 跳转到第三方支付页面
+    window.location.href = data.pay_url;
   } catch (error) {
     detailError.value = error.message;
-  } finally {
     pendingPayment.value = false;
   }
 }
@@ -165,8 +170,7 @@ watch(
           <span class="eyebrow-chip">Operations Console</span>
           <h2 style="margin-top: 0.75rem">Buyer orders, detail, payment simulation, and cards.</h2>
           <p class="section-subtitle">
-            This view preserves the current mock payment flow exposed by the backend and wraps it
-            in a higher-end operational interface.
+            Manage your orders and initiate payment via the configured payment channel.
           </p>
         </div>
         <label class="search-shell" style="min-width: 280px">
@@ -251,9 +255,9 @@ watch(
                   class="button button-primary"
                   :disabled="pendingPayment"
                   type="button"
-                  @click="simulatePayment"
+                  @click="startPayment"
                 >
-                  {{ pendingPayment ? "Processing..." : "Simulate Payment" }}
+                  {{ pendingPayment ? "Redirecting..." : "Pay Now" }}
                 </button>
                 <button
                   v-if="orderDetail.status === 2"
@@ -313,7 +317,7 @@ watch(
               <h3 style="margin-bottom: 0.8rem">Delivered cards</h3>
               <div v-if="cardsError" class="message-box error">{{ cardsError }}</div>
               <div v-else-if="orderDetail.status !== 2" class="message-box warning">
-                This order is still pending. Use the mock payment callback, then reload cards.
+                This order is pending payment. Click "Pay Now" to complete the payment.
               </div>
               <div v-else-if="cards.length === 0" class="empty-state">
                 No cards returned yet.
