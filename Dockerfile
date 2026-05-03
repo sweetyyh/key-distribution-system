@@ -28,8 +28,7 @@ WORKDIR /app
 COPY --from=go-builder /kds ./kds
 
 # Copy static frontend assets
-COPY --from=frontend-builder /app/frontend/dist ./stitch_elite_wholesale_card_ui/vue_app/dist
-COPY stitch_elite_wholesale_card_ui/app ./stitch_elite_wholesale_card_ui/app
+COPY --from=frontend-builder /app/app ./stitch_elite_wholesale_card_ui/app
 COPY stitch_elite_wholesale_card_ui/index.html ./stitch_elite_wholesale_card_ui/index.html
 
 # Copy default config (will be overridden by volume mount in production)
