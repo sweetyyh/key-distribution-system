@@ -10,14 +10,12 @@ RUN npm run build
 # ---- Stage 2: Build Go binary ----
 FROM golang:1.23-alpine AS go-builder
 
-RUN apk add --no-cache gcc musl-dev
-
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN CGO_ENABLED=1 GOOS=linux go build -o /kds ./cmd/server
+RUN CGO_ENABLED=0 GOOS=linux go build -o /kds ./cmd/server
 
 # ---- Stage 3: Final runtime image ----
 FROM alpine:3.20
@@ -40,7 +38,7 @@ COPY configs/config.yaml ./configs/config.yaml
 # Create data directory for SQLite
 RUN mkdir -p ./data
 
-EXPOSE 8080
+EXPOSE 9000
 
 ENV KDS_CONFIG=/app/configs/config.yaml
 

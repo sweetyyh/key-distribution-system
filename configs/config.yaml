@@ -4,7 +4,7 @@ app:
 
 server:
   host: 0.0.0.0
-  port: 8080
+  port: 9000
 
 sqlite:
   path: data/kds.db
@@ -21,5 +21,5 @@ payment:
       pid: "2102"          # 易支付商户ID
       key: "yaaRUUtiOAH49dUiJFp4Sy19uAaww01h"          # 易支付商户密钥
       api_url: https://mzf.jzmohe.com/submit.php
-      notify_url: https://198.12.74.54:8080/api/v1/pay/callback/epay   # 服务器异步通知，需公网可达
-      return_url: https://198.12.74.54:8080/portal/vue_app/index.html#/orders?order_no={order_no}
+      notify_url: https://gpthome.sbs/api/v1/pay/callback/epay   # 服务器异步通知，需公网可达
+      return_url: https://gpthome.sbs/portal/vue_app/index.html#/orders?order_no={order_no}

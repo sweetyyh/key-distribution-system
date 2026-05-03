@@ -6,7 +6,7 @@ services:
     container_name: key-distribution-system
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "9000:9000"
     volumes:
       # Persist SQLite database
       - kds-data:/app/data
@@ -19,7 +19,7 @@ services:
       # - KDS_JWT_BUYER_SECRET=your_buyer_secret
       # - KDS_JWT_ADMIN_SECRET=your_admin_secret
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:8080/ping"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:9000/ping"]
       interval: 30s
       timeout: 5s
       retries: 3
