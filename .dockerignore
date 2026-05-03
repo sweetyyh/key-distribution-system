@@ -1,6 +1,0 @@
-data/
-stitch_elite_wholesale_card_ui/vue_app/node_modules/
-stitch_elite_wholesale_card_ui/vue_app/dist/
-.git/
-.gitignore
-*.md
