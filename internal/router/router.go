@@ -16,7 +16,7 @@ func New(cfg *config.Config) *gin.Engine {
 
 	r.Static("/portal", "./stitch_elite_wholesale_card_ui")
 	r.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "/portal/app/")
+		c.Redirect(http.StatusMovedPermanently, "/portal/")
 	})
 
 	// CORS
@@ -39,6 +39,8 @@ func New(cfg *config.Config) *gin.Engine {
 	productH := handler.NewProductHandler()
 	orderH := handler.NewOrderHandler()
 	payH := handler.NewPayHandler(cfg)
+	guestH := handler.NewGuestHandler()
+	adminH := handler.NewAdminHandler()
 
 	buyerAuth := middleware.BuyerAuth(cfg.JWT.BuyerSecret)
 	adminAuth := middleware.AdminAuth(cfg.JWT.AdminSecret)
@@ -55,15 +57,23 @@ func New(cfg *config.Config) *gin.Engine {
 		apiV1.GET("/products", productH.List)
 		apiV1.GET("/products/:id", productH.Get)
 
-		// 需要登录
+		// 游客下单 & 查询（无需登录）
+		guest := apiV1.Group("/guest")
+		{
+			guest.POST("/orders", guestH.CreateOrder)
+			guest.GET("/orders/:order_no", guestH.GetOrderCards)
+		}
+
+		// 需要登录的买家接口
 		apiV1.POST("/orders", buyerAuth, orderH.CreateOrder)
 		apiV1.GET("/orders", buyerAuth, orderH.ListOrders)
 		apiV1.GET("/orders/:order_no", buyerAuth, orderH.GetOrderDetail)
 		apiV1.GET("/orders/:order_no/cards", buyerAuth, orderH.GetOrderCards)
 
+		// 支付（pay/create 不强制要求登录，只验签订单存在）
 		pay := apiV1.Group("/pay")
 		{
-			pay.POST("/create/:channel", buyerAuth, payH.CreatePay)
+			pay.POST("/create/:channel", payH.CreatePay)
 			pay.GET("/callback/:channel", payH.Callback)
 			pay.GET("/return/:channel", payH.Return)
 		}
@@ -71,13 +81,14 @@ func New(cfg *config.Config) *gin.Engine {
 
 	admin := r.Group("/api/admin", adminAuth)
 	{
+		admin.GET("/stats", adminH.GetStats)
+		admin.GET("/orders", adminH.ListOrders)
+		admin.GET("/users", adminH.ListUsers)
 		admin.POST("/products", handler.NotImplemented)
 		admin.PUT("/products/:id", handler.NotImplemented)
 		admin.POST("/products/:id/cards", handler.NotImplemented)
-		admin.GET("/orders", handler.NotImplemented)
 		admin.PUT("/orders/:order_no/refund", handler.NotImplemented)
 		admin.GET("/orders/failed", handler.NotImplemented)
-		admin.GET("/stats", handler.NotImplemented)
 	}
 
 	return r

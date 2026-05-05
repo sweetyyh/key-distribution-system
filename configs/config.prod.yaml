@@ -22,4 +22,4 @@ payment:
       key: "yaaRUUtiOAH49dUiJFp4Sy19uAaww01h"
       api_url: https://mzf.jzmohe.com/submit.php
       notify_url: https://YOUR_DOMAIN/api/v1/pay/callback/epay
-      return_url: https://YOUR_DOMAIN/portal/vue_app/index.html#/orders?order_no={order_no}
+      return_url: https://YOUR_DOMAIN/portal/order.html?order_no={order_no}

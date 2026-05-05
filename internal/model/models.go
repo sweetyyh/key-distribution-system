@@ -58,6 +58,7 @@ type Order struct {
 	TotalAmount string    `gorm:"type:numeric;not null"`
 	Status      int8      `gorm:"not null;default:0;index"`
 	PayChannel  string    `gorm:"size:32;not null"`
+	Email       string    `gorm:"size:128"`
 	ExpiresAt   time.Time `gorm:"not null;index"`
 	CreatedAt   time.Time `gorm:"autoCreateTime"`
 	PaidAt      *time.Time

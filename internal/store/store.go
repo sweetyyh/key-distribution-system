@@ -331,6 +331,7 @@ func (s *DBStore) CreateOrder(input CreateOrderInput) (*CreateOrderOutput, error
 			TotalAmount: fmt.Sprintf("%.2f", totalAmount),
 			Status:      0,
 			PayChannel:  input.PayChannel,
+			Email:       input.Email,
 			ExpiresAt:   expiresAt,
 			CreatedAt:   now,
 		}

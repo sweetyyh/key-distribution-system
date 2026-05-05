@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>订单查询 — KeyVault</title>
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .order-page { min-height: calc(100vh - 60px); display: flex; align-items: flex-start; justify-content: center; padding: 60px 24px; background: var(--bg-subtle); }
+    .order-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 100%; max-width: 560px; padding: 40px; box-shadow: var(--shadow-md); }
+    .form-group { margin-bottom: 18px; }
+    .input-icon { position: relative; }
+    .input-icon svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: var(--text-muted); }
+    .input-icon .input { padding-left: 36px; }
+    .result { margin-top: 32px; display: none; }
+    .result.show { display: block; }
+    .key-box { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; margin: 8px 0; }
+    .key-val { font-family: 'Courier New', monospace; font-size: 14px; font-weight: 600; color: var(--text-primary); letter-spacing: 0.05em; word-break: break-all; flex: 1; }
+    .copy-btn { display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--bg); color: var(--text-secondary); transition: all 0.15s; white-space: nowrap; margin-left: 12px; }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+    .detail-item { background: var(--bg-subtle); border-radius: var(--radius); padding: 12px 14px; }
+    .detail-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .detail-val { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .tip-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--text-secondary); margin-bottom: 7px; }
+    .tip-num { width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); color: var(--accent); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .err-msg { background: oklch(0.96 0.04 25); color: var(--danger); border-radius: var(--radius); padding: 12px 14px; font-size: 13px; margin-top: 12px; display: none; }
+    .err-msg.show { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="6" fill="currentColor"/><path d="M7 11a4 4 0 1 1 4 4H7v-4z" fill="white"/><rect x="13" y="9" width="3" height="2" rx="1" fill="white"/><rect x="13" y="13" width="3" height="2" rx="1" fill="white"/></svg>
+        KeyVault
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="index.html">商城首页</a>
+        <a class="nav-link active" href="order.html">订单查询</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm" onclick="location.href='admin-login.html'">管理后台</button>
+      </div>
+    </div>
+  </nav>
+  <div class="order-page">
+    <div class="order-card">
+      <div style="font-size:22px;font-weight:800;letter-spacing:-0.4px;color:var(--text-primary);margin-bottom:6px;">查询订单</div>
+      <div style="font-size:14px;color:var(--text-secondary);margin-bottom:32px;">输入订单号和购买邮箱，查看激活码及订单状态</div>
+      <div class="form-group">
+        <label class="label">订单号</label>
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="10" height="20" rx="2"/><rect x="3" y="6" width="10" height="12" rx="2"/></svg>
+          <input class="input" id="orderInput" type="text" placeholder="例如：SL12345678" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="label">购买邮箱</label>
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input class="input" id="emailInput" type="email" placeholder="您购买时使用的邮箱" />
+        </div>
+      </div>
+      <button class="btn btn-primary btn-lg" id="queryBtn" style="width:100%;justify-content:center;margin-top:4px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        查询订单
+      </button>
+      <div class="err-msg" id="errMsg"></div>
+      <div class="result" id="result">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);margin-bottom:16px;">
+          <span style="font-size:15px;font-weight:700;">订单详情</span>
+          <span class="badge badge-green"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 已完成</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:6px;">激活码</div>
+        <div id="cardsList"></div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;margin-bottom:16px;">请妥善保存激活码，请勿泄露他人</div>
+        <div class="detail-grid" id="detailGrid"></div>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:10px;">使用提示</div>
+          <div class="tip-item"><div class="tip-num">1</div>复制上方激活码</div>
+          <div class="tip-item"><div class="tip-num">2</div>访问对应平台官网并登录账号</div>
+          <div class="tip-item"><div class="tip-num">3</div>在礼品卡兑换页面输入代码完成激活</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+(function(){
+  const p=new URLSearchParams(location.search);
+  const no=p.get('order_no');
+  if(no)document.getElementById('orderInput').value=no;
+  try{if(!no){const s=sessionStorage.getItem('kv_order');if(s)document.getElementById('orderInput').value=s;}
+  const e=sessionStorage.getItem('kv_email');if(e)document.getElementById('emailInput').value=e;}catch(e){}
+})();
+async function query(){
+  const orderNo=document.getElementById('orderInput').value.trim();
+  const email=document.getElementById('emailInput').value.trim();
+  const err=document.getElementById('errMsg');
+  err.className='err-msg';document.getElementById('result').className='result';
+  if(!orderNo){err.textContent='请输入订单号';err.className='err-msg show';return;}
+  const btn=document.getElementById('queryBtn');
+  btn.disabled=true;btn.textContent='查询中…';
+  try{
+    const r=await fetch('/api/v1/guest/orders/'+encodeURIComponent(orderNo)+'?email='+encodeURIComponent(email));
+    const j=await r.json();
+    if(j.code!==0){
+      if(r.status===402)err.textContent='订单尚未支付，请完成支付后再查询';
+      else if(r.status===403)err.textContent='邮箱不匹配，请检查后重试';
+      else if(r.status===404)err.textContent='未找到该订单，请确认订单号';
+      else err.textContent=j.message||'查询失败';
+      err.className='err-msg show';return;
+    }
+    renderResult(j.data);
+  }catch(e){err.textContent='网络错误：'+e.message;err.className='err-msg show';}
+  finally{btn.disabled=false;btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> 查询订单';}
+}
+function renderResult(d){
+  document.getElementById('result').className='result show';
+  const cards=d.cards||[];
+  document.getElementById('cardsList').innerHTML=cards.map(c=>`<div style="margin-bottom:8px;">${cards.length>1?`<div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">第 ${c.index} 份</div>`:''}<div class="key-box"><div class="key-val">${esc(c.code)}${c.pin?`<br><span style="font-size:12px;color:var(--text-muted);">PIN: ${esc(c.pin)}</span>`:''}</div><button class="copy-btn" onclick="cpKey(this,'${encodeURIComponent(c.code+(c.pin?'\\nPIN: '+c.pin:''))}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>复制</button></div></div>`).join('');
+  const pAt=d.paid_at?new Date(d.paid_at).toLocaleString('zh-CN',{hour12:false}):'—';
+  document.getElementById('detailGrid').innerHTML=`<div class="detail-item"><div class="detail-label">订单号</div><div class="detail-val" style="font-size:12px;">${esc(d.order_no)}</div></div><div class="detail-item"><div class="detail-label">商品名称</div><div class="detail-val" style="font-size:12px;">${esc(d.product_name)}</div></div><div class="detail-item"><div class="detail-label">支付金额</div><div class="detail-val" style="color:var(--accent);">¥${esc(d.total_amount)}</div></div><div class="detail-item"><div class="detail-label">购买数量</div><div class="detail-val">${d.quantity} 份</div></div><div class="detail-item"><div class="detail-label">支付时间</div><div class="detail-val" style="font-size:12px;">${pAt}</div></div><div class="detail-item"><div class="detail-label">发货状态</div><div class="detail-val" style="color:var(--success);">已发货</div></div>`;
+}
+function cpKey(btn,enc){
+  const txt=decodeURIComponent(enc);
+  navigator.clipboard.writeText(txt).then(()=>{btn.textContent='已复制!';setTimeout(()=>{btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>复制';},2000);}).catch(()=>alert('复制失败，请手动复制'));
+}
+document.getElementById('queryBtn').addEventListener('click',query);
+['orderInput','emailInput'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')query();}));
+if(new URLSearchParams(location.search).get('order_no'))setTimeout(query,400);
+</script>
+</body>
+</html>

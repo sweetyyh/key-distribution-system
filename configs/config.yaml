@@ -22,4 +22,4 @@ payment:
       key: "yaaRUUtiOAH49dUiJFp4Sy19uAaww01h"          # 易支付商户密钥
       api_url: https://mzf.jzmohe.com/submit.php
       notify_url: https://gpthome.sbs/api/v1/pay/callback/epay   # 服务器异步通知，需公网可达
-      return_url: https://gpthome.sbs/portal/vue_app/index.html#/orders?order_no={order_no}
+      return_url: https://gpthome.sbs/portal/order.html?order_no={order_no}
