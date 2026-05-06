@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
 )
 
@@ -50,6 +51,9 @@ type ChannelConfig struct {
 }
 
 func Load(configPath string) (*Config, error) {
+	// 自动加载 .env，忽略文件不存在的错误
+	_ = godotenv.Load(".env")
+
 	v := viper.New()
 	v.SetConfigFile(configPath)
 	v.SetConfigType("yaml")
