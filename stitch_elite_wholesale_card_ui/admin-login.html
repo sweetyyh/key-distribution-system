@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>管理员登录 — KeyVault</title>
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    body{background:var(--bg-subtle);}
+    .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+    .login-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;width:100%;max-width:420px;box-shadow:var(--shadow-md);}
+    .err{background:oklch(0.96 0.04 25);color:var(--danger);border-radius:var(--radius);padding:10px 14px;font-size:13px;margin-top:12px;display:none;}
+    .err.show{display:block;}
+  </style>
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-card">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px;">
+      <div style="width:36px;height:36px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 22 22" fill="none" width="20" height="20"><rect width="22" height="22" rx="6" fill="transparent"/><path d="M7 11a4 4 0 1 1 4 4H7v-4z" fill="white"/><rect x="13" y="9" width="3" height="2" rx="1" fill="white"/><rect x="13" y="13" width="3" height="2" rx="1" fill="white"/></svg>
+      </div>
+      <div>
+        <div style="font-size:17px;font-weight:700;color:var(--text-primary);">KeyVault 后台</div>
+        <div style="font-size:12px;color:var(--text-muted);">管理员登录</div>
+      </div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <label class="label">用户名 / 邮箱</label>
+      <input class="input" id="user" type="text" placeholder="admin" />
+    </div>
+    <div style="margin-bottom:20px;">
+      <label class="label">密码</label>
+      <input class="input" id="pass" type="password" placeholder="••••••••" />
+    </div>
+    <button class="btn btn-primary" id="loginBtn" style="width:100%;justify-content:center;padding:11px;">登录</button>
+    <div class="err" id="errMsg"></div>
+    <div style="margin-top:20px;text-align:center;"><a href="index.html" style="font-size:13px;color:var(--text-muted);">← 返回商城</a></div>
+  </div>
+</div>
+<script>
+async function doLogin(){
+  const u=document.getElementById('user').value.trim();
+  const p=document.getElementById('pass').value;
+  const err=document.getElementById('errMsg');
+  err.className='err';
+  if(!u||!p){err.textContent='请填写用户名和密码';err.className='err show';return;}
+  const btn=document.getElementById('loginBtn');
+  btn.disabled=true;btn.textContent='登录中…';
+  try{
+    const r=await fetch('/api/v1/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+    const j=await r.json();
+    if(j.code!==0)throw new Error(j.message||'登录失败');
+    if(j.data.role!=='admin')throw new Error('该账号无管理员权限');
+    try{localStorage.setItem('kv_admin_token',j.data.token);localStorage.setItem('kv_admin_user',j.data.username);}catch(e){}
+    location.href='admin-dashboard.html';
+  }catch(e){
+    err.textContent=e.message;err.className='err show';
+    btn.disabled=false;btn.textContent='登录';
+  }
+}
+document.getElementById('loginBtn').addEventListener('click',doLogin);
+['user','pass'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();}));
+// Already logged in?
+try{const t=localStorage.getItem('kv_admin_token');if(t)location.href='admin-dashboard.html';}catch(e){}
+</script>
+</body>
+</html>

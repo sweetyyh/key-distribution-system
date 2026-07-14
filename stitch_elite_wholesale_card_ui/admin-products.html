@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>商品管理 — KeyVault 后台</title>
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .filter-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .search-box{display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:var(--radius);padding:7px 12px;background:var(--bg);flex:1;max-width:280px;}
+    .search-box input{border:none;outline:none;font-size:13px;font-family:inherit;color:var(--text-primary);background:transparent;flex:1;min-width:0;}
+    .action-btn{padding:4px 10px;border-radius:var(--radius-sm);font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--text-secondary);transition:all 0.15s;}
+    .action-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .prod-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800;flex-shrink:0;}
+  </style>
+</head>
+<body>
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><svg viewBox="0 0 22 22" fill="none" width="20" height="20"><rect width="22" height="22" rx="6" fill="currentColor"/><path d="M7 11a4 4 0 1 1 4 4H7v-4z" fill="white"/><rect x="13" y="9" width="3" height="2" rx="1" fill="white"/><rect x="13" y="13" width="3" height="2" rx="1" fill="white"/></svg>KeyVault 后台</div>
+    <div class="sidebar-section"><div class="sidebar-section-label">概览</div><a class="sidebar-item" href="admin-dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>数据看板</a></div>
+    <div class="sidebar-section"><div class="sidebar-section-label">管理</div>
+      <a class="sidebar-item active" href="admin-products.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>商品管理</a>
+      <a class="sidebar-item" href="admin-orders.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>订单管理</a>
+      <a class="sidebar-item" href="admin-users.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>用户管理</a>
+    </div>
+    <div class="sidebar-section"><a class="sidebar-item" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>返回前台</a><a class="sidebar-item" href="#" onclick="logout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>退出</a></div>
+  </aside>
+
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <div><div class="page-title">商品管理</div><div class="page-subtitle">管理商品信息与卡密库存</div></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;" id="adminAvatar">A</div>
+      </div>
+    </div>
+    <div class="admin-content">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
+        <div class="stat-card"><div class="stat-label">商品总数</div><div class="stat-value" style="font-size:26px;" id="sTotalProducts">—</div></div>
+        <div class="stat-card"><div class="stat-label">总库存</div><div class="stat-value" style="font-size:26px;" id="sTotalStock">—</div><div style="font-size:12px;color:var(--text-muted);">可用卡密</div></div>
+        <div class="stat-card"><div class="stat-label">低库存预警</div><div class="stat-value" style="font-size:26px;color:var(--warning);" id="sLowStock">—</div><div style="font-size:12px;color:var(--text-muted);">库存 &lt; 50</div></div>
+        <div class="stat-card"><div class="stat-label">已上架</div><div class="stat-value" style="font-size:26px;" id="sActiveProducts">—</div></div>
+      </div>
+
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+          <div class="filter-bar">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" id="searchInput" placeholder="搜索商品名称…" />
+            </div>
+          </div>
+          <span style="font-size:12px;color:var(--text-muted);" id="totalCount"></span>
+        </div>
+        <table class="table">
+          <thead><tr><th>商品名称</th><th>单价</th><th>库存</th><th>状态</th><th>操作</th></tr></thead>
+          <tbody id="productTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function logout(){try{localStorage.removeItem('kv_admin_token');}catch(e){}location.href='admin-login.html';}
+let token='';try{token=localStorage.getItem('kv_admin_token')||'';}catch(e){}
+if(!token)location.href='admin-login.html';
+try{const u=localStorage.getItem('kv_admin_user');if(u)document.getElementById('adminAvatar').textContent=u[0].toUpperCase();}catch(e){}
+const ICONS={apple:{t:'A',c:'#555555'},google:{t:'G',c:'#4285F4'},steam:{t:'S',c:'#1b2838'},netflix:{t:'N',c:'#E50914'},playstation:{t:'PS',c:'#003087'},amazon:{t:'Az',c:'#FF9900'},microsoft:{t:'M',c:'#0078d4'}};
+function getIcon(n){const l=n.toLowerCase();for(const[k,v]of Object.entries(ICONS))if(l.includes(k))return v;return{t:'K',c:'#6366f1'};}
+
+let allP=[];
+async function load(){
+  try{
+    const r=await fetch('/api/v1/products');
+    const j=await r.json();
+    if(j.code!==0)return;
+    allP=j.data.list||[];
+    document.getElementById('sTotalProducts').textContent=allP.length;
+    document.getElementById('sActiveProducts').textContent=allP.filter(p=>p.status===1).length;
+    const totalStock=allP.reduce((a,p)=>a+p.stock,0);
+    document.getElementById('sTotalStock').textContent=totalStock.toLocaleString();
+    document.getElementById('sLowStock').textContent=allP.filter(p=>p.stock<50).length;
+    renderTable(allP);
+  }catch(e){}
+}
+
+function renderTable(list){
+  document.getElementById('totalCount').textContent='共 '+list.length+' 件商品';
+  document.getElementById('productTable').innerHTML=list.map(p=>{
+    const ico=getIcon(p.name);
+    const sc=p.stock<10?'var(--danger)':p.stock<50?'var(--warning)':'var(--success)';
+    const rules=p.wholesale_rules||[];
+    const priceRange=rules.length>1?`¥${rules[rules.length-1].price.toFixed(2)} — ¥${rules[0].price.toFixed(2)}`:`¥${p.price}`;
+    return `<tr>
+      <td><div style="display:flex;align-items:center;gap:10px;">
+        <div class="prod-icon" style="background:${ico.c};">${ico.t}</div>
+        <div><div style="font-size:13px;font-weight:600;">${esc(p.name)}</div><div style="font-size:12px;color:var(--text-muted);">${esc((p.description||'').slice(0,40))}…</div></div>
+      </div></td>
+      <td>${priceRange}</td>
+      <td style="color:${sc};font-weight:600;">${p.stock.toLocaleString()}</td>
+      <td><span class="badge ${p.status===1?'badge-green':'badge-gray'}">${p.status===1?'已上架':'已下架'}</span></td>
+      <td><button class="action-btn" onclick="location.href='product.html?id=${p.id}'">查看详情</button></td>
+    </tr>`;
+  }).join('');
+}
+
+document.getElementById('searchInput').addEventListener('input',function(){
+  const q=this.value.toLowerCase();
+  renderTable(allP.filter(p=>p.name.toLowerCase().includes(q)));
+});
+
+load();
+</script>
+</body>
+</html>

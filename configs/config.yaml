@@ -1,0 +1,25 @@
+app:
+  name: key-distribution-system
+  env: dev
+
+server:
+  host: 0.0.0.0
+  port: 9000
+
+sqlite:
+  path: data/kds.db
+
+jwt:
+  buyer_secret: please_change_buyer_secret
+  admin_secret: please_change_admin_secret
+  expire_hours: 24
+
+payment:
+  channels:
+    - name: epay
+      enabled: true
+      pid: "2102"          # 易支付商户ID
+      key: "yaaRUUtiOAH49dUiJFp4Sy19uAaww01h"          # 易支付商户密钥
+      api_url: https://mzf.jzmohe.com/submit.php
+      notify_url: https://gpthome.sbs/api/v1/pay/callback/epay   # 服务器异步通知，需公网可达
+      return_url: https://gpthome.sbs/portal/order.html?order_no={order_no}

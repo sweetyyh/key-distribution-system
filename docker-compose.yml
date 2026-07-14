@@ -1,0 +1,30 @@
+services:
+  kds:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: key-distribution-system
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    volumes:
+      # Persist SQLite database
+      - kds-data:/app/data
+      # Override config at runtime (optional)
+      - ./configs/config.yaml:/app/configs/config.yaml:ro
+    environment:
+      - KDS_CONFIG=/app/configs/config.yaml
+      # Override individual config values via env vars (KDS_ prefix)
+      # - KDS_SERVER_PORT=8080
+      # - KDS_JWT_BUYER_SECRET=your_buyer_secret
+      # - KDS_JWT_ADMIN_SECRET=your_admin_secret
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:9000/ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  kds-data:
+    driver: local

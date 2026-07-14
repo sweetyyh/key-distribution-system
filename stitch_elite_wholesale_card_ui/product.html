@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>商品详情 — KeyVault</title>
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); padding: 16px 0; }
+    .breadcrumb a { color: var(--text-muted); } .breadcrumb a:hover { color: var(--accent); }
+    .product-layout { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; padding: 8px 0 64px; }
+    .product-visual { background: var(--accent-light); border: 1px solid var(--border); border-radius: var(--radius-lg); height: 280px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
+    .product-meta { margin-top: 28px; }
+    .product-meta-title { font-size: 28px; font-weight: 800; letter-spacing: -0.6px; color: var(--text-primary); line-height: 1.2; }
+    .product-tags { display: flex; gap: 6px; margin: 12px 0 20px; flex-wrap: wrap; }
+    .wholesale-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .wholesale-table th, .wholesale-table td { padding: 8px 12px; text-align: left; font-size: 13px; border: 1px solid var(--border); }
+    .wholesale-table th { background: var(--bg-subtle); font-weight: 600; color: var(--text-muted); }
+    .wholesale-table tr.active-tier td { background: var(--accent-light); color: var(--accent); font-weight: 600; }
+    .purchase-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; position: sticky; top: 80px; }
+    .purchase-price-main { font-size: 38px; font-weight: 800; color: var(--accent); letter-spacing: -1.5px; line-height: 1; }
+    .purchase-divider { border-top: 1px solid var(--border); margin: 16px 0; }
+    .purchase-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .qty-control { display: flex; align-items: center; gap: 8px; }
+    .qty-btn { width: 28px; height: 28px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--text-secondary); transition: all 0.15s; }
+    .qty-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .qty-num { font-size: 15px; font-weight: 600; width: 32px; text-align: center; }
+    .pay-methods { display: flex; gap: 8px; margin-top: 8px; }
+    .pay-method { flex: 1; padding: 9px; border: 1.5px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s; color: var(--text-secondary); }
+    .pay-method:hover { border-color: var(--accent); }
+    .pay-wechat.sel { border-color: #00a86b; color: #00a86b; background: #f0fdf4; }
+    .pay-alipay.sel { border-color: #1677ff; color: #1677ff; background: #eff6ff; }
+    .purchase-guarantee { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); margin-top: 12px; justify-content: center; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15,21,32,0.5); z-index: 300; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; width: 100%; max-width: 380px; text-align: center; }
+    .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="6" fill="currentColor"/><path d="M7 11a4 4 0 1 1 4 4H7v-4z" fill="white"/><rect x="13" y="9" width="3" height="2" rx="1" fill="white"/><rect x="13" y="13" width="3" height="2" rx="1" fill="white"/></svg>
+        KeyVault
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="index.html">商城首页</a>
+        <a class="nav-link" href="order.html">订单查询</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm" onclick="location.href='admin-login.html'">管理后台</button>
+      </div>
+    </div>
+  </nav>
+
+  <main style="padding-bottom:64px;">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">首页</a>
+        <span style="color:var(--border-strong);">/</span>
+        <span id="bcName">加载中…</span>
+      </div>
+      <div id="layout" class="product-layout">
+        <div style="text-align:center;padding:80px;color:var(--text-muted);grid-column:1/-1;">正在加载…</div>
+      </div>
+    </div>
+  </main>
+
+  <footer style="background:var(--bg);border-top:1px solid var(--border);padding:20px 0;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:13px;color:var(--text-muted);">© 2026 KeyVault</span>
+      <a href="order.html" style="font-size:13px;color:var(--text-muted);">查询订单</a>
+    </div>
+  </footer>
+</div>
+
+<div class="modal-overlay" id="payModal">
+  <div class="modal">
+    <div class="spinner"></div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:6px;">正在跳转支付…</div>
+    <div style="font-size:13px;color:var(--text-secondary);" id="modalOrderNo"></div>
+  </div>
+</div>
+
+<script>
+const ICONS={apple:{t:'A',c:'#555555'},google:{t:'G',c:'#4285F4'},steam:{t:'S',c:'#1b2838'},netflix:{t:'N',c:'#E50914'},playstation:{t:'PS',c:'#003087'},amazon:{t:'Az',c:'#FF9900'},microsoft:{t:'M',c:'#0078d4'},adobe:{t:'Ad',c:'#FF0000'}};
+function getIcon(n){const l=n.toLowerCase();for(const[k,v]of Object.entries(ICONS))if(l.includes(k))return v;return{t:'🔑',c:'#6366f1'};}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+const pid=new URLSearchParams(location.search).get('id');
+if(!pid)location.href='index.html';
+
+let P=null,qty=1,payType='wxpay',payChannel='epay';
+
+async function load(){
+  try{
+    const r=await fetch('/api/v1/products/'+pid);
+    const j=await r.json();
+    if(j.code!==0)throw new Error(j.message);
+    P=j.data;
+    document.title=P.name+' — KeyVault';
+    document.getElementById('bcName').textContent=P.name;
+    render();
+  }catch(e){
+    document.getElementById('layout').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:80px;color:var(--danger);">加载失败：${esc(e.message)}</div>`;
+  }
+}
+
+function calcUnit(){
+  if(!P.wholesale_rules||!P.wholesale_rules.length)return parseFloat(P.price);
+  for(const r of P.wholesale_rules)if(qty>=r.min&&(r.max===0||qty<=r.max))return r.price;
+  return P.wholesale_rules[P.wholesale_rules.length-1].price;
+}
+
+function render(){
+  const ico=getIcon(P.name);
+  const fs=ico.t.length>2?24:ico.t.length>1?30:42;
+  const sc=P.stock>100?'var(--success)':P.stock>0?'var(--warning)':'var(--danger)';
+  const sl=P.stock>100?'库存充足':P.stock>0?`库存 ${P.stock}`:'已售罄';
+  const hasW=P.wholesale_rules&&P.wholesale_rules.length>1;
+
+  document.getElementById('layout').innerHTML=`
+    <div>
+      <div class="product-visual" style="background:${ico.c}10;">
+        <div style="width:96px;height:96px;border-radius:22px;background:${ico.c};display:flex;align-items:center;justify-content:center;color:#fff;font-size:${fs}px;font-weight:800;box-shadow:0 8px 24px ${ico.c}40;">${ico.t}</div>
+        <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:var(--text-primary);">${esc(P.name)}</div></div>
+      </div>
+      <div class="product-meta">
+        <h1 class="product-meta-title">${esc(P.name)}</h1>
+        <div class="product-tags">
+          <span class="badge badge-blue">正版授权</span>
+          <span class="badge badge-green">即时发货</span>
+          <span class="badge badge-gray" style="color:${sc};">${sl}</span>
+        </div>
+        <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;">${esc(P.description)}</p>
+        ${hasW?`<div style="margin-top:20px;"><div style="font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">阶梯定价</div>
+        <table class="wholesale-table" id="wtbl"><thead><tr><th>数量范围</th><th>单价</th></tr></thead><tbody>
+        ${P.wholesale_rules.map(r=>`<tr data-min="${r.min}" data-max="${r.max||99999}"><td>${r.min}${r.max&&r.max>0?` — ${r.max}`:'+'} 份</td><td>¥${r.price.toFixed(2)}</td></tr>`).join('')}
+        </tbody></table></div>`:''}
+      </div>
+    </div>
+    <div>
+      <div class="purchase-card">
+        <div style="display:flex;align-items:baseline;gap:6px;">
+          <span class="purchase-price-main" id="unitP">¥${calcUnit().toFixed(2)}</span>
+          <span style="font-size:12px;color:var(--text-muted);">/份</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">含税 · 自动发货</div>
+        <div class="purchase-divider"></div>
+        <div class="purchase-row">
+          <span style="font-size:13px;color:var(--text-secondary);">购买数量</span>
+          <div class="qty-control">
+            <div class="qty-btn" id="qm">−</div>
+            <div class="qty-num" id="qn">1</div>
+            <div class="qty-btn" id="qp">+</div>
+          </div>
+        </div>
+        <div class="purchase-row">
+          <span style="font-size:13px;color:var(--text-secondary);">库存</span>
+          <span style="font-size:13px;font-weight:600;color:${sc};">${sl}</span>
+        </div>
+        <div class="purchase-divider"></div>
+        <div class="purchase-row" style="margin-bottom:0;">
+          <span style="font-size:14px;font-weight:600;">合计</span>
+          <span style="font-size:20px;font-weight:800;color:var(--accent);" id="totalP">¥${calcUnit().toFixed(2)}</span>
+        </div>
+        <div class="purchase-divider"></div>
+        <div style="margin-bottom:14px;">
+          <label class="label">接收邮箱 <span style="color:var(--danger);">*</span></label>
+          <input class="input" type="email" id="emailIn" placeholder="卡密将发送至此邮箱" />
+        </div>
+        <div style="font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;">支付方式</div>
+        <div class="pay-methods">
+          <div class="pay-method pay-alipay" id="pAli" onclick="selPay('alipay')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>支付宝
+          </div>
+          <div class="pay-method pay-wechat sel" id="pWx" onclick="selPay('wechat')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>微信支付
+          </div>
+        </div>
+        <button class="btn btn-primary btn-lg" id="payBtn" style="width:100%;justify-content:center;margin-top:16px;font-size:15px;"${P.stock===0?' disabled':''}>${P.stock===0?'暂时缺货':'立即支付 ¥'+calcUnit().toFixed(2)}</button>
+        <div class="purchase-guarantee">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          正版授权 · 7天售后保障
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('qm').onclick=()=>{if(qty>1){qty--;upd();}};
+  document.getElementById('qp').onclick=()=>{if(qty<Math.min(P.stock,99)){qty++;upd();}};
+  document.getElementById('payBtn').onclick=doPay;
+}
+
+function selPay(m){
+  payType=m==='alipay'?'alipay':'wxpay';
+  document.getElementById('pAli').className='pay-method pay-alipay'+(m==='alipay'?' sel':'');
+  document.getElementById('pWx').className='pay-method pay-wechat'+(m==='wechat'?' sel':'');
+}
+
+function upd(){
+  document.getElementById('qn').textContent=qty;
+  const u=calcUnit();const tot=(u*qty).toFixed(2);
+  document.getElementById('unitP').textContent='¥'+u.toFixed(2);
+  document.getElementById('totalP').textContent='¥'+tot;
+  if(P.stock>0)document.getElementById('payBtn').textContent='立即支付 ¥'+tot;
+  const t=document.getElementById('wtbl');
+  if(t)t.querySelectorAll('tbody tr').forEach(r=>{
+    r.className=(qty>=parseInt(r.dataset.min)&&qty<=parseInt(r.dataset.max))?'active-tier':'';
+  });
+}
+
+async function doPay(){
+  const email=document.getElementById('emailIn').value.trim();
+  if(!email||!email.includes('@')){alert('请填写有效邮箱');return;}
+  if(P.stock===0){alert('库存不足');return;}
+  const btn=document.getElementById('payBtn');
+  btn.disabled=true;btn.textContent='处理中…';
+  try{
+    const o=await fetch('/api/v1/guest/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product_id:P.id,quantity:qty,pay_channel:payChannel,email})}).then(r=>r.json());
+    if(o.code!==0)throw new Error(o.message);
+    document.getElementById('modalOrderNo').textContent='订单号: '+o.data.order_no;
+    document.getElementById('payModal').classList.add('open');
+    try{sessionStorage.setItem('kv_order',o.data.order_no);sessionStorage.setItem('kv_email',email);}catch(e){}
+    const p=await fetch('/api/v1/pay/create/'+payChannel,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({order_no:o.data.order_no,pay_type:payType,site_name:'KeyVault'})}).then(r=>r.json());
+    if(p.code!==0)throw new Error(p.message);
+    setTimeout(()=>{location.href=p.data.pay_url;},600);
+  }catch(e){
+    document.getElementById('payModal').classList.remove('open');
+    btn.disabled=false;btn.textContent='立即支付 ¥'+(calcUnit()*qty).toFixed(2);
+    alert('下单失败：'+e.message);
+  }
+}
+
+load();
+</script>
+</body>
+</html>

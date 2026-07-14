@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KeyVault — 正版卡密商城</title>
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .hero { padding: 72px 0 56px; background: var(--bg); }
+    .hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+    .hero-title { font-size: 48px; font-weight: 800; letter-spacing: -1.5px; color: var(--text-primary); line-height: 1.15; }
+    .hero-title span { color: var(--accent); }
+    .hero-subtitle { font-size: 17px; color: var(--text-secondary); max-width: 520px; line-height: 1.7; }
+    .hero-actions { display: flex; gap: 12px; margin-top: 4px; }
+    .hero-stats { display: flex; gap: 40px; margin-top: 12px; padding-top: 24px; border-top: 1px solid var(--border); width: 100%; max-width: 520px; justify-content: center; }
+    .hero-stat-num { font-size: 22px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; }
+    .hero-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    .categories-bar { background: var(--bg); border-bottom: 1px solid var(--border); position: sticky; top: 60px; z-index: 90; }
+    .categories-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    .categories-inner::-webkit-scrollbar { display: none; }
+    .cat-btn { display: flex; align-items: center; gap: 6px; padding: 10px 14px; white-space: nowrap; font-size: 13.5px; font-weight: 500; color: var(--text-secondary); cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; transition: all 0.15s; font-family: inherit; }
+    .cat-btn:hover { color: var(--text-primary); }
+    .cat-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .main-content { padding: 36px 0 64px; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; gap: 12px; }
+    .search-box { display: flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 12px; background: var(--bg); flex: 1; max-width: 360px; }
+    .search-box svg { width: 15px; height: 15px; color: var(--text-muted); flex-shrink: 0; }
+    .search-box input { border: none; outline: none; font-size: 14px; font-family: inherit; color: var(--text-primary); background: transparent; flex: 1; min-width: 0; }
+    .search-box input::placeholder { color: var(--text-muted); }
+    .sort-select { padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; font-family: inherit; color: var(--text-secondary); background: var(--bg); cursor: pointer; outline: none; }
+    .results-count { font-size: 13px; color: var(--text-muted); }
+
+    .trust-bar { background: var(--bg-subtle); border-top: 1px solid var(--border); padding: 20px 0; }
+    .trust-items { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--text-secondary); }
+    .trust-item svg { width: 18px; height: 18px; color: var(--accent); }
+
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 24px 0; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 13px; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-link { font-size: 13px; color: var(--text-muted); }
+
+    .highlight-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+    .highlight-card { border-radius: var(--radius-lg); padding: 28px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: opacity 0.2s; }
+    .highlight-card:hover { opacity: 0.92; }
+    .hc-main { background: var(--accent); color: #fff; }
+    .hc-sm { background: var(--bg-subtle); color: var(--text-primary); border: 1px solid var(--border); }
+    .hc-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+    .hc-main .hc-label { opacity: 0.7; }
+    .hc-sm .hc-label { color: var(--text-muted); }
+    .hc-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+    .hc-sm .hc-title { font-size: 17px; }
+    .hc-price { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-top: 4px; }
+    .hc-sm .hc-price { font-size: 22px; color: var(--accent); }
+    .hc-desc { font-size: 13px; }
+    .hc-main .hc-desc { opacity: 0.8; }
+    .hc-sm .hc-desc { color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="6" fill="currentColor"/><path d="M7 11a4 4 0 1 1 4 4H7v-4z" fill="white"/><rect x="13" y="9" width="3" height="2" rx="1" fill="white"/><rect x="13" y="13" width="3" height="2" rx="1" fill="white"/></svg>
+        KeyVault
+      </a>
+      <div class="nav-links">
+        <a class="nav-link active" href="index.html">商城首页</a>
+        <a class="nav-link" href="order.html">订单查询</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm" onclick="location.href='admin-login.html'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          管理后台
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        正版授权 · 即时交付
+      </div>
+      <h1 class="hero-title">购买卡密 &amp; 充值卡<br/><span>安全、即时、可靠</span></h1>
+      <p class="hero-subtitle">支持主流平台礼品卡与激活码，购买后系统自动发货，全程无需人工，7×24 小时服务。</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-lg" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">浏览商品</button>
+        <button class="btn btn-ghost btn-lg" onclick="location.href='order.html'">查询订单</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num" id="statOrders">—</div><div class="hero-stat-label">累计订单</div></div>
+        <div><div class="hero-stat-num" id="statProducts">—</div><div class="hero-stat-label">商品种类</div></div>
+        <div><div class="hero-stat-num">99.8%</div><div class="hero-stat-label">好评率</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="categories-bar">
+    <div class="categories-inner" id="catBar">
+      <button class="cat-btn active" data-cat="">全部</button>
+    </div>
+  </div>
+
+  <main class="main-content" id="products">
+    <div class="container">
+      <div class="highlight-row" id="highlightRow" style="display:none;"></div>
+      <div class="toolbar">
+        <div style="display:flex;align-items:center;gap:12px;flex:1;">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="searchInput" placeholder="搜索商品名称…" />
+          </div>
+          <span class="results-count" id="resultsCount"></span>
+        </div>
+        <select class="sort-select" id="sortSelect">
+          <option value="">默认排序</option>
+          <option value="asc">价格从低到高</option>
+          <option value="desc">价格从高到低</option>
+        </select>
+      </div>
+      <div class="product-grid" id="productGrid">
+        <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);">正在加载商品…</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="trust-bar">
+    <div class="trust-items">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>正版授权保障
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>自动发货 · 秒到账
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>售后客服支持
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>支付宝 · 微信支付
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-copy">© 2026 KeyVault. 专注正版卡密销售。</div>
+      <div class="footer-links">
+        <a class="footer-link" href="#">帮助中心</a>
+        <a class="footer-link" href="#">隐私政策</a>
+        <a class="footer-link" href="order.html">查询订单</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+const ICONS = {
+  apple:       { t: 'A',  c: '#555555' },
+  google:      { t: 'G',  c: '#4285F4' },
+  steam:       { t: 'S',  c: '#1b2838' },
+  netflix:     { t: 'N',  c: '#E50914' },
+  playstation: { t: 'PS', c: '#003087' },
+  amazon:      { t: 'Az', c: '#FF9900' },
+  microsoft:   { t: 'M',  c: '#0078d4' },
+  adobe:       { t: 'Ad', c: '#FF0000' },
+};
+
+function getIcon(name) {
+  const n = name.toLowerCase();
+  for (const [k, v] of Object.entries(ICONS)) if (n.includes(k)) return v;
+  return { t: '🔑', c: '#6366f1' };
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+let allProducts = [];
+let activeCat = '';
+
+async function load() {
+  try {
+    const r = await fetch('/api/v1/products');
+    const j = await r.json();
+    if (j.code !== 0) throw new Error(j.message);
+    allProducts = j.data.list || [];
+    document.getElementById('statProducts').textContent = allProducts.length;
+    renderHighlight();
+    renderCats();
+    render();
+  } catch(e) {
+    document.getElementById('productGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--danger);">加载失败：${esc(e.message)}</div>`;
+  }
+}
+
+function renderHighlight() {
+  const top = allProducts.slice(0, 3);
+  if (!top.length) return;
+  const labels = ['精选推荐','热门商品','限时推荐'];
+  let html = '';
+  top.forEach((p, i) => {
+    if (i === 0) {
+      html += `<div class="highlight-card hc-main" onclick="go(${p.id})">
+        <div class="hc-label">${labels[i]}</div>
+        <div class="hc-title">${esc(p.name)}</div>
+        <div class="hc-desc">${esc(p.description.slice(0,80))}…</div>
+        <div class="hc-price">¥${p.price}</div>
+      </div>`;
+    } else {
+      html += `<div class="highlight-card hc-sm" onclick="go(${p.id})">
+        <div class="hc-label">${labels[i]}</div>
+        <div class="hc-title">${esc(p.name)}</div>
+        <div class="hc-desc">${esc(p.description.slice(0,50))}…</div>
+        <div class="hc-price">¥${p.price}</div>
+      </div>`;
+    }
+  });
+  const row = document.getElementById('highlightRow');
+  row.innerHTML = html;
+  row.style.display = 'grid';
+}
+
+function renderCats() {
+  const bar = document.getElementById('catBar');
+  const totalBtn = `<button class="cat-btn active" data-cat="">全部 <span style="font-size:11px;background:var(--bg-subtle);border-radius:100px;padding:1px 6px;color:var(--text-muted);">${allProducts.length}</span></button>`;
+  bar.innerHTML = totalBtn;
+  bar.querySelectorAll('.cat-btn').forEach(b => b.addEventListener('click', e => {
+    document.querySelectorAll('.cat-btn').forEach(x => x.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    activeCat = e.currentTarget.dataset.cat;
+    render();
+  }));
+}
+
+function render() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const sort = document.getElementById('sortSelect').value;
+  let list = allProducts.filter(p => {
+    const mq = !q || p.name.toLowerCase().includes(q) || (p.description||'').toLowerCase().includes(q);
+    return mq;
+  });
+  if (sort === 'asc') list.sort((a,b) => parseFloat(a.price)-parseFloat(b.price));
+  else if (sort === 'desc') list.sort((a,b) => parseFloat(b.price)-parseFloat(a.price));
+
+  document.getElementById('resultsCount').textContent = `共 ${list.length} 件商品`;
+  const grid = document.getElementById('productGrid');
+  if (!list.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);">暂无商品</div>'; return; }
+  grid.innerHTML = list.map(p => {
+    const ico = getIcon(p.name);
+    const fs = ico.t.length > 2 ? 15 : ico.t.length > 1 ? 18 : 26;
+    const stockLabel = p.stock > 100 ? '库存充足' : p.stock > 0 ? `库存 ${p.stock}` : '暂时缺货';
+    const stockColor = p.stock > 100 ? 'var(--success)' : p.stock > 0 ? 'var(--warning)' : 'var(--danger)';
+    return `<div class="product-card" onclick="go(${p.id})">
+      <div class="product-card-img" style="background:${ico.c}15;">
+        <div style="width:64px;height:64px;border-radius:14px;background:${ico.c};display:flex;align-items:center;justify-content:center;color:#fff;font-size:${fs}px;font-weight:800;">${ico.t}</div>
+      </div>
+      <div class="product-card-body">
+        <span class="product-name">${esc(p.name)}</span>
+        <p class="product-desc">${esc((p.description||'').slice(0,90))}${(p.description||'').length>90?'…':''}</p>
+        <div class="product-footer">
+          <span class="product-price">¥${p.price}</span>
+          <span class="product-stock" style="color:${stockColor};">${stockLabel}</span>
+        </div>
+        <button class="btn btn-primary" style="margin-top:8px;width:100%;justify-content:center;"${p.stock===0?' disabled':''}>
+          ${p.stock===0?'暂时缺货':'立即购买'}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function go(id) { location.href = 'product.html?id=' + id; }
+
+document.getElementById('searchInput').addEventListener('input', render);
+document.getElementById('sortSelect').addEventListener('change', render);
+
+load();
+fetch('/api/admin/stats').then(r=>r.json()).then(j=>{
+  if (j.code===0) document.getElementById('statOrders').textContent = j.data.total_orders;
+}).catch(()=>{});
+</script>
+</body>
+</html>

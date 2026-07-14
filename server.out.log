@@ -1,0 +1,42 @@
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /portal/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /portal/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] GET    /                         --> key-distribution-system/internal/router.New.func1 (3 handlers)
+[GIN-debug] GET    /ping                     --> key-distribution-system/internal/handler.(*HealthHandler).Ping-fm (4 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> key-distribution-system/internal/handler.(*AuthHandler).Register-fm (4 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> key-distribution-system/internal/handler.(*AuthHandler).Login-fm (4 handlers)
+[GIN-debug] GET    /api/v1/products          --> key-distribution-system/internal/handler.(*ProductHandler).List-fm (4 handlers)
+[GIN-debug] GET    /api/v1/products/:id      --> key-distribution-system/internal/handler.(*ProductHandler).Get-fm (4 handlers)
+[GIN-debug] POST   /api/v1/orders            --> key-distribution-system/internal/handler.(*OrderHandler).CreateOrder-fm (5 handlers)
+[GIN-debug] GET    /api/v1/orders            --> key-distribution-system/internal/handler.(*OrderHandler).ListOrders-fm (5 handlers)
+[GIN-debug] GET    /api/v1/orders/:order_no  --> key-distribution-system/internal/handler.(*OrderHandler).GetOrderDetail-fm (5 handlers)
+[GIN-debug] GET    /api/v1/orders/:order_no/cards --> key-distribution-system/internal/handler.(*OrderHandler).GetOrderCards-fm (5 handlers)
+[GIN-debug] POST   /api/v1/pay/callback/:channel --> key-distribution-system/internal/handler.(*PayHandler).MockCallback-fm (4 handlers)
+[GIN-debug] GET    /api/v1/pay/return/:channel --> key-distribution-system/internal/handler.NotImplemented (4 handlers)
+[GIN-debug] POST   /api/admin/products       --> key-distribution-system/internal/handler.NotImplemented (5 handlers)
+[GIN-debug] PUT    /api/admin/products/:id   --> key-distribution-system/internal/handler.NotImplemented (5 handlers)
+[GIN-debug] POST   /api/admin/products/:id/cards --> key-distribution-system/internal/handler.NotImplemented (5 handlers)
+[GIN-debug] GET    /api/admin/orders         --> key-distribution-system/internal/handler.NotImplemented (5 handlers)
+[GIN-debug] PUT    /api/admin/orders/:order_no/refund --> key-distribution-system/internal/handler.NotImplemented (5 handlers)
+[GIN-debug] GET    /api/admin/orders/failed  --> key-distribution-system/internal/handler.NotImplemented (5 handlers)
+[GIN-debug] GET    /api/admin/stats          --> key-distribution-system/internal/handler.NotImplemented (5 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://github.com/gin-gonic/gin/blob/master/docs/doc.md#dont-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on 0.0.0.0:8080
+[GIN] 2026/04/16 - 22:18:38 | 200 |            0s |       127.0.0.1 | GET      "/ping"
+[GIN] 2026/04/16 - 22:18:38 | 200 |     76.8772ms |       127.0.0.1 | HEAD     "/portal/"
+[GIN] 2026/04/16 - 22:18:38 | 200 |     76.8772ms |       127.0.0.1 | HEAD     "/portal/app/"
+[GIN] 2026/04/16 - 22:19:48 | 200 |       510.4µs |       127.0.0.1 | GET      "/portal/"
+[GIN] 2026/04/16 - 22:19:48 | 200 |         516µs |       127.0.0.1 | GET      "/portal/log_in_web/log_in_web.html?next=%2Fportal%2Fsingle_web%2Fsingle_web.html%3Fid%3D4"
+[GIN] 2026/04/16 - 22:22:11 | 200 |       108.4µs |             ::1 | GET      "/portal/index_web/index_web.html"
+[GIN] 2026/04/16 - 22:22:11 | 200 |            0s |             ::1 | GET      "/portal/app/"
+[GIN] 2026/04/16 - 22:22:11 | 200 |            0s |             ::1 | GET      "/portal/app/assets/index-oD81A_oK.css"
+[GIN] 2026/04/16 - 22:22:11 | 200 |            0s |             ::1 | GET      "/portal/app/assets/index-CTGiLDoC.js"
+[GIN] 2026/04/16 - 22:22:12 | 200 |         515µs |             ::1 | GET      "/api/v1/products"
+[GIN] 2026/04/16 - 22:22:22 | 200 |            0s |             ::1 | GET      "/api/v1/orders?page=1&page_size=20"
+[GIN] 2026/04/16 - 22:22:22 | 200 |            0s |             ::1 | GET      "/api/v1/orders/SL481184069716"
+[GIN] 2026/04/16 - 22:22:22 | 200 |            0s |             ::1 | GET      "/api/v1/orders/SL481184069716/cards"
+[GIN] 2026/04/16 - 22:22:23 | 200 |            0s |             ::1 | GET      "/api/v1/products"
